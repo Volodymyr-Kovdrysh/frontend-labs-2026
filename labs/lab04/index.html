@@ -1,0 +1,1064 @@
+
+<!DOCTYPE html>
+
+
+<html lang="uk" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4. Лабораторна робота №4. Маршрутизація та спільний стан застосунку &#8212; Web-програмування: лабораторні роботи</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=0a3c33aa"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'labs/lab04/index';</script>
+    <link rel="index" title="Індекс" href="../../genindex.html" />
+    <link rel="search" title="Пошук" href="../../search.html" />
+    <link rel="next" title="5. Лабораторна робота №5. Асинхронні дані та GAS API" href="../lab05/index.html" />
+    <link rel="prev" title="3. Лабораторна робота №3. Поведінка в часі, ефекти та анімація" href="../lab03/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="uk"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Web-програмування: лабораторні роботи</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Пошук" aria-label="Пошук" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Пошук</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lab01/index.html">1. Лабораторна робота №1. Компонентна модель «Світлофора»</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab02/index.html">2. Лабораторна робота №2. Стан, події та похідний інтерфейс</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab03/index.html">3. Лабораторна робота №3. Поведінка в часі, ефекти та анімація</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Лабораторна робота №4. Маршрутизація та спільний стан застосунку</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab05/index.html">5. Лабораторна робота №5. Асинхронні дані та GAS API</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Завантажте цю сторінку">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/labs/lab04/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Завантажити вихідний файл"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Друк у форматі PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Повноекранний режим"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Пошук" aria-label="Пошук" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Лабораторна робота №4. Маршрутизація та спільний стан застосунку</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Зміст </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.1. Мета роботи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.2. Результати навчання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.3. Передумови та початковий стан проєкту</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.4. Теоретичний мінімум</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spa-html">4.4.1. SPA і маршрут — не окремі HTML-файли</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.4.2. Чому навігація має використовувати маршрутизатор</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlet">4.4.3. Макет і <code class="docutils literal notranslate"><span class="pre">Outlet</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context-2">4.4.4. Чому Context не був потрібен у ЛР2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context">4.4.5. Context — канал доступу, а не магічний стан</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.4.6. Провайдер повинен відповідати лише за стан своєї предметної області</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4.4.7. Провайдер контексту має переживати навігацію між маршрутами</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#router">4.4.8. Компоненти представлення не повинні знати Router</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.4.9. Збереження стану між маршрутами та між перезавантаженнями — різні речі</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4.5. Постановка задачі</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">4.6. Виконання</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#react-router">4.6.1. Крок 1. Додайте React Router у наявний проєкт</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">4.6.2. Крок 2. Створіть компоненти сторінок і структуру маршрутів</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">4.6.3. Крок 3. Створіть спільний макет і навігацію</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">4.6.4. Крок 4. Визначте склад спільного стану світлофора</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trafficlightsprovider">4.6.5. Крок 5. Перенесіть стан та життєвий цикл таймера до <code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">4.6.6. Крок 6. Розмістіть провайдер контексту вище за гілки маршрутів</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trafficlightpage-context">4.6.7. Крок 7. Підключіть <code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code> до Context</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statspage-context">4.6.8. Крок 8. Підключіть <code class="docutils literal notranslate"><span class="pre">StatsPage</span></code> до того самого Context</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">4.6.9. Крок 9. Перевірте збереження стану під час навігації як сценарій</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">4.7. Контрольні точки виконання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">4.8. Самоперевірка</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4.9. Критерії приймання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4.10. Додаткове завдання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">4.11. Поза основним обсягом ЛР4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">4.12. Результат</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="o4">
+<span id="lab-04"></span><h1><span class="section-number">4. </span>Лабораторна робота №4. Маршрутизація та спільний стан застосунку<a class="headerlink" href="#o4" title="Link to this heading">#</a></h1>
+<p><strong>Контрольна точка:</strong> CP4 — багатомаршрутний SPA зі спільним станом світлофора.</p>
+<section id="id1">
+<h2><span class="section-number">4.1. </span>Мета роботи<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Навчитися організовувати React-застосунок як односторінковий застосунок (SPA, single-page application) із кількома
+маршрутами, розділяти компоненти сторінок і макета та повторно використовувані
+компоненти предметної області, а також винести стан світлофора до спільного власника,
+коли одні й ті самі дані потрібні різним гілкам маршрутів.</p>
+<p>У цій роботі Context з’являється не як «глобальне сховище про всяк випадок», а як
+відповідь на конкретну проблему спільного стану: після появи сторінок
+<code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code> і <code class="docutils literal notranslate"><span class="pre">/stats</span></code> локальний стан CP3 більше не має одного природного
+власника стану сторінки.</p>
+</section>
+<section id="id2">
+<h2><span class="section-number">4.2. </span>Результати навчання<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Після виконання роботи ви повинні вміти:</p>
+<ul class="simple">
+<li><p>пояснити, чим маршрут на стороні клієнта відрізняється від окремої HTML-сторінки;</p></li>
+<li><p>налаштувати базову маршрутизацію React SPA;</p></li>
+<li><p>створити спільний макет і навігацію для кількох сторінок;</p></li>
+<li><p>розділити компоненти сторінок, компоненти макета і повторно використовувані компоненти предметної області;</p></li>
+<li><p>пояснити, чому стан, потрібний різним гілкам маршрутів, потребує спільного власника;</p></li>
+<li><p>створити Context і провайдер контексту з обмеженою відповідальністю за світлофор;</p></li>
+<li><p>читати спільний стан та викликати дії предметної області із кількох сторінок через Context;</p></li>
+<li><p>зберігати поточний сигнал, лічильники, орієнтацію і стан автоматичного режиму під
+час переходів між маршрутами;</p></li>
+<li><p>пояснити, чому Context був зайвим у ЛР2, але стає виправданим у ЛР4.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2><span class="section-number">4.3. </span>Передумови та початковий стан проєкту<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Початкова точка цієї роботи — <strong>CP3</strong> після ЛР3:</p>
+<ul class="simple">
+<li><p>є повторно використовувані компоненти <code class="docutils literal notranslate"><span class="pre">Light</span></code>, <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code>;</p></li>
+<li><p>поточна фаза / активний сигнал зберігається у стані React;</p></li>
+<li><p>ручні натискання оновлюють сигнал і лічильники;</p></li>
+<li><p>орієнтація є керованою станом;</p></li>
+<li><p>автоматичний/ручний режим керується станом;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">useEffect</span></code> створює таймер для автоматичного режиму і коректно виконує очищення;</p></li>
+<li><p>автоматичний цикл проходить <code class="docutils literal notranslate"><span class="pre">red</span> <span class="pre">→</span> <span class="pre">yellow</span> <span class="pre">→</span> <span class="pre">green</span> <span class="pre">→</span> <span class="pre">yellow</span> <span class="pre">→</span> <span class="pre">red</span></code>;</p></li>
+<li><p>повторні запуск і зупинка не породжують дубльованих таймерів;</p></li>
+<li><p>усі ці дані поки що живуть у локальному дереві однієї функціональної частини екрана.</p></li>
+</ul>
+<p>Новий Vite-проєкт <strong>не створюйте</strong>. Продовжуйте той самий наскрізний проєкт
+«Світлофор».</p>
+<div class="admonition important">
+<p class="admonition-title">Важливо</p>
+<p>Головна тема ЛР4 — <strong>Router + спільний власник стану через Context</strong>.
+Маршрутизація тут потрібна не для того, щоб просто мати кілька URL, а щоб
+побачити ситуацію, у якій локальний стан одного компонента сторінки перестає
+бути достатнім.</p>
+</div>
+</section>
+<section id="id4">
+<h2><span class="section-number">4.4. </span>Теоретичний мінімум<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="spa-html">
+<h3><span class="section-number">4.4.1. </span>SPA і маршрут — не окремі HTML-файли<a class="headerlink" href="#spa-html" title="Link to this heading">#</a></h3>
+<p>В односторінковому застосунку браузер завантажує каркас застосунку, а подальший
+перехід між маршрутами змінює URL і те, які React-компоненти показуються на екрані,
+без повного перезавантаження документа.</p>
+<p>У цій роботі маршрут визначає, <strong>інтерфейс якої сторінки показати для конкретного URL</strong>.
+Наприклад:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/                → HomePage
+/traffic-light   → TrafficLightPage
+/stats           → StatsPage
+невідомий URL    → NotFoundPage
+</pre></div>
+</div>
+<p>Для базового SPA достатньо декларативної маршрутизації: браузерний маршрутизатор, набір маршрутів і
+навігаційні посилання.</p>
+</section>
+<section id="id5">
+<h3><span class="section-number">4.4.2. </span>Чому навігація має використовувати маршрутизатор<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Звичайний HTML-link на кшталт:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"/stats"</span><span class="p">&gt;</span>Статистика<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>може спричинити повну навігацію браузера і нове завантаження застосунку. Для SPA
+використовуйте навігацію засобами маршрутизатора, наприклад <code class="docutils literal notranslate"><span class="pre">NavLink</span></code> або <code class="docutils literal notranslate"><span class="pre">Link</span></code>.</p>
+<p>Схематично:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">NavLink</span><span class="w"> </span><span class="na">to</span><span class="o">=</span><span class="s">"/traffic-light"</span><span class="p">&gt;</span><span class="nx">Світлофор</span><span class="p">&lt;/</span><span class="nt">NavLink</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">NavLink</span><span class="w"> </span><span class="na">to</span><span class="o">=</span><span class="s">"/stats"</span><span class="p">&gt;</span><span class="nx">Статистика</span><span class="p">&lt;/</span><span class="nt">NavLink</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Так маршрутизатор змінює адресу всередині вже запущеного React-застосунку.</p>
+</section>
+<section id="outlet">
+<h3><span class="section-number">4.4.3. </span>Макет і <code class="docutils literal notranslate"><span class="pre">Outlet</span></code><a class="headerlink" href="#outlet" title="Link to this heading">#</a></h3>
+<p>Кілька маршрутів часто мають спільну частину: заголовок, навігацію, нижній колонтитул або інший
+каркас застосунку.</p>
+<p>Замість дублювання цієї розмітки створіть компонент макета. Він показує спільний
+інтерфейс і місце, де маршрутизатор повинен відтворити поточну дочірню сторінку.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>AppLayout
+├── заголовок / навігація
+└── Outlet
+    ├── HomePage
+    ├── TrafficLightPage
+    ├── StatsPage
+    └── NotFoundPage
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Outlet</span></code> — це місце для дочірнього маршруту, що відповідає поточній адресі.</p>
+</section>
+<section id="context-2">
+<h3><span class="section-number">4.4.4. </span>Чому Context не був потрібен у ЛР2<a class="headerlink" href="#context-2" title="Link to this heading">#</a></h3>
+<p>У ЛР2 уся функціональна частина жила у межах одного локального дерева:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TrafficLights
+├── Light × 3
+└── StatsBar
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> був природним найближчим спільним власником стану. Дані можна було
+передавати вниз через <code class="docutils literal notranslate"><span class="pre">props</span></code>, а події — вгору через функції зворотного виклику. Додавати Context
+лише тому, що він існує в React, було б зайвим ускладненням.</p>
+<p>Після появи маршрутизації структура змінюється:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>AppLayout
+├── TrafficLightPage
+│   └── TrafficLights
+└── StatsPage
+    └── StatsBar
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsPage</span></code> — різні гілки маршрутів. Якщо стан залишити
+всередині <code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code>, то <code class="docutils literal notranslate"><span class="pre">StatsPage</span></code> не має природного доступу до нього,
+а під час повторного монтування стан сторінки може скидатися.</p>
+<p>Тепер виникає реальна потреба підняти власника стану <strong>вище за обидві гілки маршрутів</strong>.</p>
+</section>
+<section id="context">
+<h3><span class="section-number">4.4.5. </span>Context — канал доступу, а не магічний стан<a class="headerlink" href="#context" title="Link to this heading">#</a></h3>
+<p>Context сам по собі не замінює <code class="docutils literal notranslate"><span class="pre">useState</span></code> або <code class="docutils literal notranslate"><span class="pre">useEffect</span></code>. Він дає дочірнім
+компонентам спосіб прочитати значення від найближчого провайдера контексту без ручного
+прокидання однакових <code class="docutils literal notranslate"><span class="pre">props</span></code> через кожний проміжний компонент.</p>
+<p>Схематично:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TrafficLightsProvider
+├── стан + ефекти + обробники предметної області
+└── дерево Router
+    ├── TrafficLightPage ── використовує Context
+    └── StatsPage        ── використовує Context
+</pre></div>
+</div>
+<p>Сам стан усе ще має конкретного власника — <code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code>.</p>
+</section>
+<section id="id6">
+<h3><span class="section-number">4.4.6. </span>Провайдер повинен відповідати лише за стан своєї предметної області<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Не намагайтеся зробити один універсальний Context «для всього застосунку».
+У цій роботі провайдер контексту має чітку відповідальність: <strong>стан предметної області світлофора</strong>.</p>
+<p>До нього належать дані й дії, уже сформовані в CP2–CP3:</p>
+<ul class="simple">
+<li><p>поточна фаза / активний сигнал;</p></li>
+<li><p>лічильники ручних натискань;</p></li>
+<li><p>орієнтацію;</p></li>
+<li><p>автоматичний/ручний режим;</p></li>
+<li><p>дії для ручного вибору;</p></li>
+<li><p>дії запуску/зупинки або еквівалентне керування автоматичним режимом;</p></li>
+<li><p>життєвий цикл таймера, якщо він є частиною цієї поведінки предметної області.</p></li>
+</ul>
+<p>До нього <strong>не належать</strong> майбутні облікові дані автентифікації, стан обміну із сервером або
+випадкові налаштування інтерфейсу лише тому, що Context доступний у всьому піддереві.</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">4.4.7. </span>Провайдер контексту має переживати навігацію між маршрутами<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Щоб спільний стан не скидався під час переходів між <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code> і <code class="docutils literal notranslate"><span class="pre">/stats</span></code>,
+провайдер контексту повинен знаходитися <strong>вище за елементи маршрутів, які перемикаються</strong>.</p>
+<p>Наприклад, корінь застосунку може мати таку форму:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>BrowserRouter
+└── TrafficLightsProvider
+    └── App
+        └── Routes
+</pre></div>
+</div>
+<p>або еквівалентну структуру з тією самою межею володіння станом.</p>
+<p>Якщо ж провайдер контексту створюється всередині <code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code>, то під час виходу з
+цього маршруту він може демонтуватися разом зі станом — і Context не розв’яже
+проблему.</p>
+</section>
+<section id="router">
+<h3><span class="section-number">4.4.8. </span>Компоненти представлення не повинні знати Router<a class="headerlink" href="#router" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Light</span></code>, <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code> уже мають відповідальність за предметну логіку та інтерфейс.
+Не потрібно додавати до них навігацію лише тому, що застосунок тепер має
+маршрути.</p>
+<p>Краще, щоб компоненти сторінок були межею інтеграції:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TrafficLightPage
+├── використовує спільний стан світлофора
+└── передає потрібні props у TrafficLights
+
+StatsPage
+├── використовує спільний стан світлофора
+└── передає потрібні props у StatsBar
+</pre></div>
+</div>
+<p>Так повторно використовувані компоненти можна відтворювати й тестувати незалежно від Router.</p>
+</section>
+<section id="id8">
+<h3><span class="section-number">4.4.9. </span>Збереження стану між маршрутами та між перезавантаженнями — різні речі<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Після цієї роботи переходи між маршрутами не повинні скидати спільний стан світлофора. Але це <strong>не означає</strong>, що стан уже зберігається між перезавантаженнями браузера.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>навігація маршрутами      → стан CP4 зберігається
+повне перезавантаження    → стан може початися заново
+</pre></div>
+</div>
+<p>Збереження даних на сервері з’явиться в ЛР5. Не підміняйте її в цій
+роботі випадковим <code class="docutils literal notranslate"><span class="pre">localStorage</span></code>, якщо це не є вашим окремим додатковим
+експериментом.</p>
+</section>
+</section>
+<section id="id9">
+<h2><span class="section-number">4.5. </span>Постановка задачі<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>Перетворіть CP3 із одного локального екрана функціональної частини на багатомаршрутний SPA зі
+спільним станом світлофора.</p>
+<p>Після виконання роботи застосунок повинен мати щонайменше такі маршрути:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>URL</p></th>
+<th class="head"><p>Призначення</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+<td><p>головна сторінка / огляд застосунку</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code></p></td>
+<td><p>світлофор, елементи ручного керування, запуск/зупинка, орієнтація</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/stats</span></code></p></td>
+<td><p>статистика та відображення спільного стану лише для читання</p></td>
+</tr>
+<tr class="row-odd"><td><p>будь-який інший</p></td>
+<td><p>сторінка для невідомої адреси / Not Found</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Додатково:</p>
+<ol class="arabic simple">
+<li><p>усі сторінки використовують спільний макет застосунку й навігацію;</p></li>
+<li><p>стан світлофора має одного власника стану у <code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code> або провайдера контексту з
+еквівалентною відповідальністю;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code> і <code class="docutils literal notranslate"><span class="pre">/stats</span></code> бачать один і той самий поточний сигнал і лічильники;</p></li>
+<li><p>навігація між маршрутами не скидає поточний сигнал, лічильники, орієнтацію або
+стан автоматичного режиму;</p></li>
+<li><p>автоматичний режим не повинен випадково зупинятися лише тому, що користувач
+перейшов на <code class="docutils literal notranslate"><span class="pre">/stats</span></code>, якщо провайдер контексту лишається змонтованим;</p></li>
+<li><p>компоненти представлення не стають залежними від Router без необхідності;</p></li>
+<li><p>головна сторінка та сторінка для невідомої адреси не стають власниками стану світлофора.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Примітка</p>
+<p>У ЛР4 ми перевіряємо збереження стану <strong>лише в пам’яті поточної вкладки браузера</strong>. Якщо ви
+оновили вкладку браузера і стан повернувся до початкових значень, це ще не
+помилка CP4. Збереження даних між перезавантаженнями буде окремою темою ЛР5.</p>
+</div>
+</section>
+<section id="id10">
+<h2><span class="section-number">4.6. </span>Виконання<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<section id="react-router">
+<h3><span class="section-number">4.6.1. </span>Крок 1. Додайте React Router у наявний проєкт<a class="headerlink" href="#react-router" title="Link to this heading">#</a></h3>
+<p>Не створюйте новий каркас застосунку. Додайте залежність маршрутизації до того
+самого Vite-проєкту CP3.</p>
+<p>Для декларативного режиму використайте актуальний пакет React Router:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>install<span class="w"> </span>react-router
+</pre></div>
+</div>
+<p>Підключіть браузерного маршрутизатора на верхньому рівні дерева застосунку.</p>
+<p>Мінімальна ідея:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BrowserRouter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"react-router"</span>
+
+<span class="p">&lt;</span><span class="nt">BrowserRouter</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">App</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">BrowserRouter</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Не копіюйте цей фрагмент механічно поверх свого <code class="docutils literal notranslate"><span class="pre">main.jsx</span></code>. Збережіть уже наявний
+<code class="docutils literal notranslate"><span class="pre">StrictMode</span></code> та інші кореневі обгортки, якщо вони є.</p>
+<p><strong>Перевірка 1:</strong> застосунок запускається після встановлення Router, а поточна
+поведінка CP3 ще не зламана.</p>
+</section>
+<section id="id11">
+<h3><span class="section-number">4.6.2. </span>Крок 2. Створіть компоненти сторінок і структуру маршрутів<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>Створіть окремі компоненти сторінок щонайменше для:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">HomePage</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StatsPage</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NotFoundPage</span></code> або еквівалентної сторінки для невідомої адреси.</p></li>
+</ul>
+<p>Назви директорій (<code class="docutils literal notranslate"><span class="pre">pages</span></code>, <code class="docutils literal notranslate"><span class="pre">Pages</span></code> тощо) не є метою роботи. Важливіше, щоб у
+структурі коду було видно різницю між <strong>інтеграцією на рівні сторінки</strong> і повторно використовуваними
+компонентами.</p>
+<p>Для декларативної маршрутизації достатньо <code class="docutils literal notranslate"><span class="pre">Routes</span></code> і <code class="docutils literal notranslate"><span class="pre">Route</span></code>:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">Routes</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">Route</span><span class="w"> </span><span class="na">path</span><span class="o">=</span><span class="s">"/"</span><span class="w"> </span><span class="na">element</span><span class="o">=</span><span class="p">{</span><span class="cm">/* ... */</span><span class="p">}</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">Route</span><span class="w"> </span><span class="na">path</span><span class="o">=</span><span class="s">"/traffic-light"</span><span class="w"> </span><span class="na">element</span><span class="o">=</span><span class="p">{</span><span class="cm">/* ... */</span><span class="p">}</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">Route</span><span class="w"> </span><span class="na">path</span><span class="o">=</span><span class="s">"/stats"</span><span class="w"> </span><span class="na">element</span><span class="o">=</span><span class="p">{</span><span class="cm">/* ... */</span><span class="p">}</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">Route</span><span class="w"> </span><span class="na">path</span><span class="o">=</span><span class="s">"*"</span><span class="w"> </span><span class="na">element</span><span class="o">=</span><span class="p">{</span><span class="cm">/* ... */</span><span class="p">}</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">Routes</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Це лише схема структури маршрутів, а не готове рішення з вашими імпортами й компонентами.</p>
+<p><strong>Перевірка 2:</strong> введення кожної потрібної URL-адреси в адресний рядок браузера показує
+відповідну сторінку, а невідомий URL має контрольований інтерфейс для невідомої адреси.</p>
+</section>
+<section id="id12">
+<h3><span class="section-number">4.6.3. </span>Крок 3. Створіть спільний макет і навігацію<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>Винесіть спільний каркас застосунку в компонент макета.</p>
+<p>Макет має щонайменше містити навігацію до:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/stats</span></code>.</p></li>
+</ul>
+<p>Для вкладеної структури маршрутів макет може містити <code class="docutils literal notranslate"><span class="pre">Outlet</span></code>:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">AppLayout</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">&lt;&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">nav</span><span class="p">&gt;{</span><span class="cm">/* NavLink ... */</span><span class="p">}&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">main</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">Outlet</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">main</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;/&gt;</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Використайте <code class="docutils literal notranslate"><span class="pre">NavLink</span></code> або <code class="docutils literal notranslate"><span class="pre">Link</span></code>, а не повне перезавантаження браузера через звичайні
+<code class="docutils literal notranslate"><span class="pre">href</span></code> для внутрішньої SPA-навігації.</p>
+<p>За бажанням позначайте активний пункт меню через можливості <code class="docutils literal notranslate"><span class="pre">NavLink</span></code>, але
+складне оформлення навігації не є головною метою ЛР4.</p>
+<p><strong>Перевірка 3:</strong> усі потрібні сторінки доступні з навігації інтерфейсу без ручного
+редагування URL і без повного перезавантаження застосунку.</p>
+</section>
+<section id="id13">
+<h3><span class="section-number">4.6.4. </span>Крок 4. Визначте склад спільного стану світлофора<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>До створення Context випишіть, які дані реально повинні переживати
+навігацію між маршрутами і бути видимими кільком сторінкам.</p>
+<p>Для CP4 це щонайменше:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>currentPhase / currentSignal
+clickCounters
+orientation
+isAutomatic
+</pre></div>
+</div>
+<p>Також випишіть дії предметної області, які потрібні компонентам-споживачам. Наприклад:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>selectSignal(...)
+startAutomatic()
+stopAutomatic()
+toggleOrientation()
+</pre></div>
+</div>
+<p>Точні назви можуть відрізнятися. Важливо, щоб Context описував можливості предметної області,
+а не випадковий набір усіх локальних функцій оновлення стану проєкту.</p>
+<div class="admonition important">
+<p class="admonition-title">Важливо</p>
+<p>Не додавайте в <code class="docutils literal notranslate"><span class="pre">TrafficLightsContext</span></code> майбутній стан автентифікації, серверні запити або
+будь-які дані «про запас». Context повинен мати одну зрозумілу відповідальність.</p>
+</div>
+<p><strong>Перевірка 4:</strong> ви можете одним реченням пояснити, які дані належать
+<code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code>, а які — ні.</p>
+</section>
+<section id="trafficlightsprovider">
+<h3><span class="section-number">4.6.5. </span>Крок 5. Перенесіть стан та життєвий цикл таймера до <code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code><a class="headerlink" href="#trafficlightsprovider" title="Link to this heading">#</a></h3>
+<p>Створіть Context і провайдер контексту, який стане спільним власником для стану CP3.</p>
+<p>Базова структура може виглядати так:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">TrafficLightsContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">createContext</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">TrafficLightsProvider</span><span class="p">({</span><span class="w"> </span><span class="nx">children</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// стан CP2/CP3</span>
+<span class="w">  </span><span class="c1">// ефект + очищення таймера CP3</span>
+<span class="w">  </span><span class="c1">// обробники предметної області</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// спільний стан</span>
+<span class="w">    </span><span class="c1">// дії предметної області</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">TrafficLightsContext</span><span class="p">.</span><span class="na">Provider</span><span class="w"> </span><span class="na">value</span><span class="o">=</span><span class="p">{</span><span class="nx">value</span><span class="p">}&gt;</span>
+<span class="w">      </span><span class="p">{</span><span class="nx">children</span><span class="p">}</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">TrafficLightsContext</span><span class="p">.</span><span class="na">Provider</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Це <strong>структурний каркас</strong>, а не повний код провайдера контексту. Перенесіть у нього вже
+працюючу CP3-логіку без зміни поведінки предметної області.</p>
+<p>Особливо перевірте:</p>
+<ul class="simple">
+<li><p>ефект таймера й очищення не загубилися під час рефакторингу;</p></li>
+<li><p>автоматичні кроки таймера не почали збільшувати лічильники ручних натискань;</p></li>
+<li><p>орієнтація і поточна фаза не створили дубльованих копій стану;</p></li>
+<li><p>провайдер контексту не створюється заново для кожної окремої сторінки.</p></li>
+</ul>
+<p><strong>Перевірка 5:</strong> після рефакторингу поведінка CP3 працює так само, але власник стану
+тепер знаходиться вище сторінок маршрутів.</p>
+</section>
+<section id="id14">
+<h3><span class="section-number">4.6.6. </span>Крок 6. Розмістіть провайдер контексту вище за гілки маршрутів<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>Розмістіть <code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code> так, щоб <code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsPage</span></code>
+бачили <strong>той самий екземпляр провайдера контексту</strong>.</p>
+<p>Один із можливих варіантів дерева застосунку:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>BrowserRouter
+└── TrafficLightsProvider
+    └── App
+        └── Routes
+            └── AppLayout
+                ├── HomePage
+                ├── TrafficLightPage
+                ├── StatsPage
+                └── NotFoundPage
+</pre></div>
+</div>
+<p>Не розміщуйте провайдер контексту всередині <code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code>, якщо очікуєте збереження стану
+під час переходу на <code class="docutils literal notranslate"><span class="pre">/stats</span></code>.</p>
+<p><strong>Перевірка 6:</strong> встановіть непочатковий сигнал, кілька разів змініть лічильники
+та орієнтацію, увімкніть або вимкніть автоматичний режим, перейдіть на <code class="docutils literal notranslate"><span class="pre">/stats</span></code> і
+назад. Спільні значення не повинні скидатися.</p>
+</section>
+<section id="trafficlightpage-context">
+<h3><span class="section-number">4.6.7. </span>Крок 7. Підключіть <code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code> до Context<a class="headerlink" href="#trafficlightpage-context" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code> з’єднує спільний стан з інтерактивним інтерфейсом світлофора.
+Вона повинна отримати спільний стан і дії із Context і передати потрібні дані
+повторно використовуваним компонентам.</p>
+<p>Наприклад, сторінка може:</p>
+<ul class="simple">
+<li><p>прочитати поточну фазу / сигнал;</p></li>
+<li><p>прочитати орієнтацію;</p></li>
+<li><p>прочитати стан автоматичного режиму;</p></li>
+<li><p>отримати обробники ручного вибору, запуску/зупинки й зміни орієнтації;</p></li>
+<li><p>передати ці дані в <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>, елементи керування та інші дочірні компоненти.</p></li>
+</ul>
+<p>Сам <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> не зобов’язаний викликати хуки маршрутизатора. Він може й надалі
+працювати через зрозумілий контракт <code class="docutils literal notranslate"><span class="pre">props</span></code>.</p>
+<p><strong>Перевірка 7:</strong> інтерактивна поведінка CP3 працює на <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code>, а повторно використовувані
+компоненти представлення не потребують знань про поточну URL-адресу.</p>
+</section>
+<section id="statspage-context">
+<h3><span class="section-number">4.6.8. </span>Крок 8. Підключіть <code class="docutils literal notranslate"><span class="pre">StatsPage</span></code> до того самого Context<a class="headerlink" href="#statspage-context" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">StatsPage</span></code> повинна читати ті самі лічильники та інші потрібні спільні значення.</p>
+<p>Вона має щонайменше показувати:</p>
+<ul class="simple">
+<li><p>лічильники <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">yellow</span></code>, <code class="docutils literal notranslate"><span class="pre">green</span></code>;</p></li>
+<li><p>загальну кількість ручних натискань як похідне значення;</p></li>
+<li><p>поточний сигнал / фазу;</p></li>
+<li><p>орієнтацію;</p></li>
+<li><p>стан автоматичного/ручного режиму.</p></li>
+</ul>
+<p>Якщо у вас уже є <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code>, використайте його повторно або виділіть із нього
+частину представлення. Не створюйте на <code class="docutils literal notranslate"><span class="pre">StatsPage</span></code> нову незалежну копію лічильників.</p>
+<p><strong>Перевірка 8:</strong> змініть стан на <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code>, відкрийте <code class="docutils literal notranslate"><span class="pre">/stats</span></code> і
+переконайтеся, що сторінка одразу показує ті самі значення без дубльованого стану.</p>
+</section>
+<section id="id15">
+<h3><span class="section-number">4.6.9. </span>Крок 9. Перевірте збереження стану під час навігації як сценарій<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>Виконайте послідовність:</p>
+<ol class="arabic simple">
+<li><p>відкрийте <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code>;</p></li>
+<li><p>зробіть кілька ручних натискань;</p></li>
+<li><p>змініть орієнтацію;</p></li>
+<li><p>увімкніть автоматичний режим і дочекайтеся кількох переходів;</p></li>
+<li><p>перейдіть на <code class="docutils literal notranslate"><span class="pre">/stats</span></code>;</p></li>
+<li><p>переконайтеся, що лічильники, поточна фаза та режим узгоджені;</p></li>
+<li><p>поверніться на <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code>;</p></li>
+<li><p>перевірте, що стан не повернувся до початкових значень;</p></li>
+<li><p>відкрийте невідомий URL і перевірте сторінку для невідомої адреси;</p></li>
+<li><p>поверніться через навігацію, а не через створення нового стану застосунку.</p></li>
+</ol>
+<p>Якщо стан скидається, перевірте насамперед <strong>де саме змонтований провайдер контексту</strong>, а не
+намагайтеся «лікувати» проблему додатковим Context або копіюванням стану.</p>
+<p><strong>Перевірка 9:</strong> весь сценарій проходить без скидання спільного стану і без дубльованих
+провайдерів контексту.</p>
+</section>
+</section>
+<section id="id16">
+<h2><span class="section-number">4.7. </span>Контрольні точки виконання<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<p>Перед завершенням роботи послідовно перевірте:</p>
+<ol class="arabic simple">
+<li><p>застосунок має маршрути <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code>, <code class="docutils literal notranslate"><span class="pre">/stats</span></code> і маршрут для невідомої адреси;</p></li>
+<li><p>навігація працює як SPA-навігація;</p></li>
+<li><p>є спільний макет, який не дублюється в кожній сторінці;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code> має одну чітку відповідальність у предметній області;</p></li>
+<li><p>власник поточної фази, лічильників, орієнтації та стану автоматичного режиму — провайдер контексту;</p></li>
+<li><p>життєвий цикл таймера CP3 збережений після перенесення стану;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsPage</span></code> отримують узгоджений спільний стан;</p></li>
+<li><p>навігація між маршрутами не скидає спільний стан;</p></li>
+<li><p>компоненти представлення не стали залежними від Router без потреби;</p></li>
+<li><p>сторінки Home/NotFound не володіють станом світлофора;</p></li>
+<li><p>дані автентифікації/серверної частини не додані до Context світлофора;</p></li>
+<li><p>перезавантаження браузера не видається за вимогу збереження між перезавантаженнями в CP4.</p></li>
+</ol>
+</section>
+<section id="id17">
+<h2><span class="section-number">4.8. </span>Самоперевірка<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>Дайте відповіді на запитання і будьте готові пояснити їх під час захисту:</p>
+<ol class="arabic simple">
+<li><p>Що означає SPA у контексті вашого застосунку?</p></li>
+<li><p>Яку задачу розв’язує <code class="docutils literal notranslate"><span class="pre">BrowserRouter</span></code>?</p></li>
+<li><p>Чому для внутрішньої навігації краще використати <code class="docutils literal notranslate"><span class="pre">NavLink</span></code>/<code class="docutils literal notranslate"><span class="pre">Link</span></code>, а не
+звичайний <code class="docutils literal notranslate"><span class="pre">&lt;a</span> <span class="pre">href&gt;</span></code>?</p></li>
+<li><p>Яку роль виконує <code class="docutils literal notranslate"><span class="pre">Outlet</span></code> у маршруті макета?</p></li>
+<li><p>Чому Context не був потрібний у ЛР2?</p></li>
+<li><p>Яка нова проблема з’явилася після поділу застосунку на <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code> і
+<code class="docutils literal notranslate"><span class="pre">/stats</span></code>?</p></li>
+<li><p>Де тепер знаходиться власник стану світлофора?</p></li>
+<li><p>Чому Context не є сам по собі заміною <code class="docutils literal notranslate"><span class="pre">useState</span></code>?</p></li>
+<li><p>Що відбудеться, якщо <code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code> розмістити всередині
+<code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code>?</p></li>
+<li><p>Які значення входять до Context і чому саме вони?</p></li>
+<li><p>Які дані свідомо <strong>не</strong> входять до цього Context?</p></li>
+<li><p>Де тепер живе ефект таймера CP3 і чому?</p></li>
+<li><p>Чому <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code> бажано залишати незалежними від Router?</p></li>
+<li><p>Чим збереження стану між маршрутами відрізняється від збереження стану між
+перезавантаженнями браузера?</p></li>
+<li><p>Як ви перевірили, що <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code> і <code class="docutils literal notranslate"><span class="pre">/stats</span></code> бачать один спільний стан?</p></li>
+<li><p>Чому універсальний «Context для всього» гірший за контекст конкретної предметної області
+<code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code>?</p></li>
+</ol>
+</section>
+<section id="id18">
+<h2><span class="section-number">4.9. </span>Критерії приймання<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>Робота вважається виконаною, якщо одночасно виконані всі умови:</p>
+<ul class="simple">
+<li><p>застосунок продовжує CP3 без створення нового незалежного проєкту;</p></li>
+<li><p>React Router інтегрований у наявний Vite-застосунок;</p></li>
+<li><p>доступні маршрути <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code>, <code class="docutils literal notranslate"><span class="pre">/stats</span></code> і контрольований маршрут для невідомої адреси;</p></li>
+<li><p>є спільний макет і навігація;</p></li>
+<li><p>внутрішня навігація між потрібними сторінками працює як SPA-навігація;</p></li>
+<li><p>спільний стан світлофора має одного спільного власника — <code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code>;</p></li>
+<li><p>поточна фаза / активний сигнал, лічильники, орієнтація і стан автоматичного режиму
+належать спільному власнику стану, а не окремим сторінкам маршрутів;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsPage</span></code> споживають узгоджений стан через Context;</p></li>
+<li><p>переходи <code class="docutils literal notranslate"><span class="pre">/traffic-light</span> <span class="pre">↔</span> <span class="pre">/stats</span></code> не скидають спільні значення;</p></li>
+<li><p>ефект таймера й очищення CP3 продовжують працювати після рефакторингу;</p></li>
+<li><p>автоматичний режим не створює дубльовані таймери під час навігації між маршрутами;</p></li>
+<li><p>лічильники ручних натискань не збільшуються від автоматичних кроків таймера;</p></li>
+<li><p>компоненти представлення не мають зайвої відповідальності за маршрутизацію;</p></li>
+<li><p>сторінки Home та Not Found не є власниками стану світлофора;</p></li>
+<li><p>Context світлофора не містить відповідальності за автентифікацію/серверну частину;</p></li>
+<li><p>студент може пояснити розташування провайдера контексту і причину появи Context саме у ЛР4.</p></li>
+</ul>
+</section>
+<section id="id19">
+<h2><span class="section-number">4.10. </span>Додаткове завдання<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>Після виконання обов’язкових вимог додайте <strong>ще один маршрут лише для читання</strong>, який
+споживає той самий Context світлофора.</p>
+<p>Наприклад:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/status
+</pre></div>
+</div>
+<p>На цій сторінці можна компактно показати:</p>
+<ul class="simple">
+<li><p>поточний сигнал;</p></li>
+<li><p>автоматичний/ручний режим;</p></li>
+<li><p>орієнтацію;</p></li>
+<li><p>загальну кількість ручних натискань.</p></li>
+</ul>
+<p>Додатковий маршрут <strong>не повинен</strong> створювати новий провайдер контексту або власні копії
+стану світлофора. Його мета — показати, що вже створений спільний Context
+підтримує новий компонент-споживач без зміни власника стану.</p>
+</section>
+<section id="id20">
+<h2><span class="section-number">4.11. </span>Поза основним обсягом ЛР4<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p>У цій роботі не потрібно робити стан світлофора між перезавантаженнями браузера.
+Серверне збереження та GAS API з’являться в ЛР5.</p>
+<p>Так само поза основним обсягом ЛР4 залишаються:</p>
+<ul class="simple">
+<li><p>завантажувачі/дії React Router або інша архітектура отримання даних;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">json-server</span></code> чи інша тестова серверна частина як обов’язковий елемент;</p></li>
+<li><p>Tailwind CSS і DaisyUI як система інтерфейсу;</p></li>
+<li><p>автентифікація і захищені маршрути;</p></li>
+<li><p>виробнича конфігурація розгортання для прямих запитів до вкладених SPA-адрес.</p></li>
+</ul>
+<p>Зосередьтеся на двох пов’язаних питаннях:</p>
+<ol class="arabic simple">
+<li><p><strong>яка сторінка відповідає поточному URL;</strong></p></li>
+<li><p><strong>де повинен жити стан, якщо він потрібний кільком сторінкам.</strong></p></li>
+</ol>
+</section>
+<section id="id21">
+<h2><span class="section-number">4.12. </span>Результат<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<p><strong>CP4:</strong> багатомаршрутний React-застосунок із SPA-маршрутизацією та маршрутами <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code>, <code class="docutils literal notranslate"><span class="pre">/stats</span></code> і сторінкою для невідомої адреси, спільними макетом і навігацією та <code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code>, який є одним власником стану
+для поточної фази, лічильників, орієнтації, стану автоматичного режиму і пов’язаного
+життєвого циклу таймера CP3. <code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsPage</span></code> бачать один спільний стан,
+навігація між маршрутами не скидає його, а компоненти представлення залишаються
+відокремленими від Router настільки, наскільки це дозволяє їхня відповідальність.</p>
+<p>Цей стан проєкту є вхідною точкою для ЛР5, де спільний стан застосунку буде
+пов’язано з даними, збереженими на сервері, через обмежений GAS API.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../lab03/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">попередній</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Лабораторна робота №3. Поведінка в часі, ефекти та анімація</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../lab05/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">наступний</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Лабораторна робота №5. Асинхронні дані та GAS API</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Зміст
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.1. Мета роботи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.2. Результати навчання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.3. Передумови та початковий стан проєкту</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.4. Теоретичний мінімум</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spa-html">4.4.1. SPA і маршрут — не окремі HTML-файли</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.4.2. Чому навігація має використовувати маршрутизатор</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlet">4.4.3. Макет і <code class="docutils literal notranslate"><span class="pre">Outlet</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context-2">4.4.4. Чому Context не був потрібен у ЛР2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context">4.4.5. Context — канал доступу, а не магічний стан</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.4.6. Провайдер повинен відповідати лише за стан своєї предметної області</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4.4.7. Провайдер контексту має переживати навігацію між маршрутами</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#router">4.4.8. Компоненти представлення не повинні знати Router</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.4.9. Збереження стану між маршрутами та між перезавантаженнями — різні речі</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4.5. Постановка задачі</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">4.6. Виконання</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#react-router">4.6.1. Крок 1. Додайте React Router у наявний проєкт</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">4.6.2. Крок 2. Створіть компоненти сторінок і структуру маршрутів</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">4.6.3. Крок 3. Створіть спільний макет і навігацію</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">4.6.4. Крок 4. Визначте склад спільного стану світлофора</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trafficlightsprovider">4.6.5. Крок 5. Перенесіть стан та життєвий цикл таймера до <code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">4.6.6. Крок 6. Розмістіть провайдер контексту вище за гілки маршрутів</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trafficlightpage-context">4.6.7. Крок 7. Підключіть <code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code> до Context</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statspage-context">4.6.8. Крок 8. Підключіть <code class="docutils literal notranslate"><span class="pre">StatsPage</span></code> до того самого Context</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">4.6.9. Крок 9. Перевірте збереження стану під час навігації як сценарій</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">4.7. Контрольні точки виконання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">4.8. Самоперевірка</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4.9. Критерії приймання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4.10. Додаткове завдання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">4.11. Поза основним обсягом ЛР4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">4.12. Результат</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Автор Author name not set
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+
+
+<html lang="uk" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1. Лабораторна робота №1. Компонентна модель «Світлофора» &#8212; Web-програмування: лабораторні роботи</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=0a3c33aa"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'labs/lab01/index';</script>
+    <link rel="index" title="Індекс" href="../../genindex.html" />
+    <link rel="search" title="Пошук" href="../../search.html" />
+    <link rel="next" title="2. Лабораторна робота №2. Стан, події та похідний інтерфейс" href="../lab02/index.html" />
+    <link rel="prev" title="Web-програмування: лабораторні роботи" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="uk"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Web-програмування: лабораторні роботи</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Пошук" aria-label="Пошук" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Пошук</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Лабораторна робота №1. Компонентна модель «Світлофора»</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab02/index.html">2. Лабораторна робота №2. Стан, події та похідний інтерфейс</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab03/index.html">3. Лабораторна робота №3. Поведінка в часі, ефекти та анімація</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab04/index.html">4. Лабораторна робота №4. Маршрутизація та спільний стан застосунку</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab05/index.html">5. Лабораторна робота №5. Асинхронні дані та GAS API</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Завантажте цю сторінку">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/labs/lab01/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Завантажити вихідний файл"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Друк у форматі PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Повноекранний режим"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Пошук" aria-label="Пошук" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Лабораторна робота №1. Компонентна модель «Світлофора»</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Зміст </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1.1. Мета роботи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.2. Результати навчання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.3. Передумови та початковий стан проєкту</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.4. Теоретичний мінімум</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.4.1. Компонент і екземпляр компонента</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#props">1.4.2. <code class="docutils literal notranslate"><span class="pre">props</span></code> як вхідні дані компонента</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.4.3. Композиція компонентів</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.4.4. Один контракт — кілька варіантів</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.5. Постановка задачі</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">1.6. Виконання</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#react-vite">1.6.1. Крок 1. Підготуйте React/Vite-проєкт</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#light">1.6.2. Крок 2. Створіть компонент <code class="docutils literal notranslate"><span class="pre">Light</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trafficlights">1.6.3. Крок 3. Створіть компонент <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">1.6.4. Крок 4. Додайте орієнтацію через <code class="docutils literal notranslate"><span class="pre">props</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#app">1.6.5. Крок 5. Зберіть демонстрацію в <code class="docutils literal notranslate"><span class="pre">App</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">1.7. Контрольні точки виконання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">1.8. Самоперевірка</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">1.9. Критерії приймання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">1.10. Додаткове завдання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">1.11. Межі цієї роботи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">1.12. Результат</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="o1">
+<span id="lab-01"></span><h1><span class="section-number">1. </span>Лабораторна робота №1. Компонентна модель «Світлофора»<a class="headerlink" href="#o1" title="Link to this heading">#</a></h1>
+<p><strong>Контрольна точка:</strong> CP1 — компонентний статичний світлофор.</p>
+<section id="id1">
+<h2><span class="section-number">1.1. </span>Мета роботи<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Навчитися будувати інтерфейс React із повторно використовуваних компонентів,
+передавати дані від батьківського компонента до дочірнього через <code class="docutils literal notranslate"><span class="pre">props</span></code> і
+компонувати складніший інтерфейс із простіших частин без дублювання логіки.</p>
+</section>
+<section id="id2">
+<h2><span class="section-number">1.2. </span>Результати навчання<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Після виконання роботи ви повинні вміти:</p>
+<ul class="simple">
+<li><p>пояснити різницю між <strong>компонентом</strong> і конкретним екземпляром компонента в
+інтерфейсі;</p></li>
+<li><p>виділяти повторно використовувану частину інтерфейсу в окремий React-компонент;</p></li>
+<li><p>передавати дані від батьківського компонента до дочірнього через <code class="docutils literal notranslate"><span class="pre">props</span></code>;</p></li>
+<li><p>компонувати складніший інтерфейс із простіших компонентів;</p></li>
+<li><p>використовувати один компонентний контракт для кількох візуальних варіантів
+без дублювання реалізації.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2><span class="section-number">1.3. </span>Передумови та початковий стан проєкту<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Для роботи потрібні базові знання HTML, CSS і JavaScript, а також робоче
+середовище з Node.js/npm і Git.</p>
+<p>На початку роботи готового React-застосунку «Світлофор» ще немає. У цій
+лабораторній ви один раз створюєте базовий React/Vite-проєкт, який далі буде
+послідовно розвиватися в наступних роботах.</p>
+<div class="admonition important">
+<p class="admonition-title">Важливо</p>
+<p>Vite і Git у цій лабораторній — лише інструменти підготовки проєкту. Основна
+навчальна тема роботи — <strong>React-компоненти, композиція та <code class="docutils literal notranslate"><span class="pre">props</span></code></strong>.</p>
+</div>
+</section>
+<section id="id4">
+<h2><span class="section-number">1.4. </span>Теоретичний мінімум<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="id5">
+<h3><span class="section-number">1.4.1. </span>Компонент і екземпляр компонента<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>React-компонент описує, <strong>як побудувати певну частину інтерфейсу</strong>. Компонент
+можна використати багато разів. Кожне використання створює окремий екземпляр у
+дереві інтерфейсу.</p>
+<p>Наприклад, один і той самий компонент можна викликати з різними даними:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">ColorSample</span><span class="w"> </span><span class="na">color</span><span class="o">=</span><span class="s">"red"</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">ColorSample</span><span class="w"> </span><span class="na">color</span><span class="o">=</span><span class="s">"green"</span><span class="w"> </span><span class="p">/&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ColorSample</span></code> тут є компонентом, а два JSX-елементи — двома його екземплярами.
+Для різних варіантів не потрібно створювати <code class="docutils literal notranslate"><span class="pre">RedColorSample</span></code> і
+<code class="docutils literal notranslate"><span class="pre">GreenColorSample</span></code>, якщо відрізняються лише вхідні дані.</p>
+</section>
+<section id="props">
+<h3><span class="section-number">1.4.2. </span><code class="docutils literal notranslate"><span class="pre">props</span></code> як вхідні дані компонента<a class="headerlink" href="#props" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">props</span></code> — це дані, які батьківський компонент передає дочірньому. Дочірній
+компонент використовує їх для побудови інтерфейсу, але не повинен самовільно
+змінювати отримані значення.</p>
+<p>Мінімальний приклад:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">Label</span><span class="p">({</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;{</span><span class="nx">text</span><span class="p">}&lt;/</span><span class="nt">span</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Використання:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">Label</span><span class="w"> </span><span class="na">text</span><span class="o">=</span><span class="s">"Стоп"</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">Label</span><span class="w"> </span><span class="na">text</span><span class="o">=</span><span class="s">"Рух дозволено"</span><span class="w"> </span><span class="p">/&gt;</span>
+</pre></div>
+</div>
+<p>Той самий компонент має один контракт — <code class="docutils literal notranslate"><span class="pre">text</span></code> — і отримує різні значення від
+батьківського компонента.</p>
+</section>
+<section id="id6">
+<h3><span class="section-number">1.4.3. </span>Композиція компонентів<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Композиція означає, що один компонент будується з інших компонентів. У цій
+роботі структура має бути такою:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>App
+└── TrafficLights
+    ├── Light
+    ├── Light
+    └── Light
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">App</span></code> демонструє світлофори, <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> відповідає за композицію набору
+сигналів, а <code class="docutils literal notranslate"><span class="pre">Light</span></code> — за представлення одного сигналу.</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">1.4.4. </span>Один контракт — кілька варіантів<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Вертикальний і горизонтальний світлофор мають однакові сигнали та однакову
+компонентну логіку. Відрізняється лише спосіб розташування елементів. Тому два
+варіанти повинні використовувати <strong>той самий</strong> <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>, а орієнтація має
+передаватися як вхідне значення.</p>
+<p>Саме це відрізняє повторне використання компонента від копіювання коду.</p>
+</section>
+</section>
+<section id="id8">
+<h2><span class="section-number">1.5. </span>Постановка задачі<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>Потрібно створити статичний React-застосунок «Світлофор», у якому:</p>
+<ol class="arabic simple">
+<li><p>один компонент <code class="docutils literal notranslate"><span class="pre">Light</span></code> представляє окремий сигнал і отримує його колір через
+<code class="docutils literal notranslate"><span class="pre">props</span></code>;</p></li>
+<li><p>компонент <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> компонує три <code class="docutils literal notranslate"><span class="pre">Light</span></code> — червоний, жовтий і зелений;</p></li>
+<li><p>той самий <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> підтримує вертикальне та горизонтальне розташування;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">App</span></code> одночасно демонструє обидва варіанти;</p></li>
+<li><p>оформлення достатнє, щоб сигнали й орієнтація були однозначно видимими.</p></li>
+</ol>
+<p>У цій роботі світлофор <strong>статичний</strong>: користувач нічого не перемикає, а сигнали
+не мають стану чи подій.</p>
+</section>
+<section id="id9">
+<h2><span class="section-number">1.6. </span>Виконання<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<section id="react-vite">
+<h3><span class="section-number">1.6.1. </span>Крок 1. Підготуйте React/Vite-проєкт<a class="headerlink" href="#react-vite" title="Link to this heading">#</a></h3>
+<p>Створіть React-проєкт через Vite у каталозі, визначеному для вашої роботи, і
+переконайтеся, що стартовий застосунок запускається у режимі розробки.</p>
+<p>Якщо Git-репозиторій уже підготовлений викладачем, <strong>не створюйте вкладений
+Git-репозиторій</strong>. Працюйте в межах наявного репозиторію.</p>
+<p>Після запуску приберіть демонстраційний вміст Vite, який не належить
+до вашого застосунку: логотипи, лічильник, тестові посилання та зайві стилі.
+Залиште мінімальну структуру, з якої зрозуміло, що відображається саме ваш код.</p>
+<p><strong>Перевірка 1:</strong> застосунок запускається без помилок під час виконання і не містить
+стандартного демонстраційного інтерфейсу Vite.</p>
+</section>
+<section id="light">
+<h3><span class="section-number">1.6.2. </span>Крок 2. Створіть компонент <code class="docutils literal notranslate"><span class="pre">Light</span></code><a class="headerlink" href="#light" title="Link to this heading">#</a></h3>
+<p>Винесіть представлення одного сигналу в окремий модуль <code class="docutils literal notranslate"><span class="pre">Light</span></code>.</p>
+<p>Вимоги до компонента:</p>
+<ul class="simple">
+<li><p>він отримує колір через <code class="docutils literal notranslate"><span class="pre">props</span></code>;</p></li>
+<li><p>він не повинен визначати всередині себе, що «правильний» колір — наприклад,
+завжди червоний;</p></li>
+<li><p>один і той самий <code class="docutils literal notranslate"><span class="pre">Light</span></code> має працювати щонайменше для <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">yellow</span></code> і
+<code class="docutils literal notranslate"><span class="pre">green</span></code>;</p></li>
+<li><p>сигнал повинен мати форму та розмір, за якими його легко впізнати як лампу
+світлофора.</p></li>
+</ul>
+<p>Назва властивості може бути <code class="docutils literal notranslate"><span class="pre">color</span></code> або інша зрозуміла назва, але контракт компонента
+має бути послідовним у всьому проєкті.</p>
+<p>Для самоперевірки тимчасово використайте кілька екземплярів <code class="docutils literal notranslate"><span class="pre">Light</span></code> з різними
+кольорами. Зміна переданого значення повинна змінювати вигляд екземпляра <strong>без
+редагування реалізації самого <code class="docutils literal notranslate"><span class="pre">Light</span></code></strong>.</p>
+<p><strong>Перевірка 2:</strong> один модуль <code class="docutils literal notranslate"><span class="pre">Light</span></code> коректно відображає щонайменше три різні
+кольори, отримані через <code class="docutils literal notranslate"><span class="pre">props</span></code>.</p>
+</section>
+<section id="trafficlights">
+<h3><span class="section-number">1.6.3. </span>Крок 3. Створіть компонент <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code><a class="headerlink" href="#trafficlights" title="Link to this heading">#</a></h3>
+<p>Створіть окремий компонент <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>, який використовує <code class="docutils literal notranslate"><span class="pre">Light</span></code> для
+побудови світлофора з трьох сигналів:</p>
+<ol class="arabic simple">
+<li><p>red;</p></li>
+<li><p>yellow;</p></li>
+<li><p>green.</p></li>
+</ol>
+<p>Не копіюйте JSX одного сигналу тричі з різною внутрішньою реалізацією. Усі три
+сигнали мають бути екземплярами одного <code class="docutils literal notranslate"><span class="pre">Light</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> повинен відповідати за <strong>композицію</strong> світлофора, а не за
+реалізацію окремої лампи.</p>
+<p><strong>Перевірка 3:</strong> у дереві компонентів <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> видно три екземпляри
+одного <code class="docutils literal notranslate"><span class="pre">Light</span></code>, а зміна контракту <code class="docutils literal notranslate"><span class="pre">Light</span></code> не потребує редагувати три окремі
+реалізації ламп.</p>
+</section>
+<section id="id10">
+<h3><span class="section-number">1.6.4. </span>Крок 4. Додайте орієнтацію через <code class="docutils literal notranslate"><span class="pre">props</span></code><a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>Розширте контракт <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>, щоб батьківський компонент міг задати орієнтацію,
+наприклад значенням <code class="docutils literal notranslate"><span class="pre">vertical</span></code> або <code class="docutils literal notranslate"><span class="pre">horizontal</span></code>.</p>
+<p>Орієнтація має змінювати <strong>лише компонування</strong>. Склад сигналів і компонентна логіка
+світлофора при цьому залишаються спільними.</p>
+<p>Для оформлення достатньо звичайного CSS. Можна використати, наприклад,
+<code class="docutils literal notranslate"><span class="pre">flex-direction</span></code>, модифікатор CSS-класу або інший зрозумілий механізм. У цій
+роботі не потрібно підключати фреймворк інтерфейсу.</p>
+<div class="admonition warning">
+<p class="admonition-title">Попередження</p>
+<p>Не створюйте два компоненти на кшталт <code class="docutils literal notranslate"><span class="pre">VerticalTrafficLights</span></code> і
+<code class="docutils literal notranslate"><span class="pre">HorizontalTrafficLights</span></code>, якщо вони відрізняються лише напрямком розташування.
+Це дублює одну й ту саму логіку замість використання <code class="docutils literal notranslate"><span class="pre">props</span></code>.</p>
+</div>
+<p><strong>Перевірка 4:</strong> зміна значення орієнтації перемикає компонування того самого
+<code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> між вертикальним і горизонтальним виглядом.</p>
+</section>
+<section id="app">
+<h3><span class="section-number">1.6.5. </span>Крок 5. Зберіть демонстрацію в <code class="docutils literal notranslate"><span class="pre">App</span></code><a class="headerlink" href="#app" title="Link to this heading">#</a></h3>
+<p>У <code class="docutils literal notranslate"><span class="pre">App</span></code> розмістіть два екземпляри <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>:</p>
+<ul class="simple">
+<li><p>один вертикальний;</p></li>
+<li><p>один горизонтальний.</p></li>
+</ul>
+<p>Обидва мають використовувати ті самі компоненти <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> і <code class="docutils literal notranslate"><span class="pre">Light</span></code>.
+Додайте короткі підписи, щоб під час демонстрації було однозначно видно, який
+варіант показано.</p>
+<p>Мінімальна бажана модульність:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>src/
+├── App.jsx
+└── components/
+    ├── Light.jsx
+    └── TrafficLights.jsx
+</pre></div>
+</div>
+<p>Файли стилів можете організувати зручним способом. Точний шлях до компонентів
+не є самоціллю, але <code class="docutils literal notranslate"><span class="pre">Light</span></code> і <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> повинні бути окремими модулями.</p>
+<p><strong>Перевірка 5:</strong> <code class="docutils literal notranslate"><span class="pre">App</span></code> одночасно показує два світлофори різної орієнтації без
+копії компонентної реалізації.</p>
+</section>
+</section>
+<section id="id11">
+<h2><span class="section-number">1.7. </span>Контрольні точки виконання<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>Перед завершенням роботи послідовно перевірте:</p>
+<ol class="arabic simple">
+<li><p>застосунок запускається після очищення демонстраційного вмісту Vite;</p></li>
+<li><p>один <code class="docutils literal notranslate"><span class="pre">Light</span></code> відображає різні кольори на основі <code class="docutils literal notranslate"><span class="pre">props</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> складається з трьох екземплярів <code class="docutils literal notranslate"><span class="pre">Light</span></code>;</p></li>
+<li><p>орієнтація задається через контракт <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>, а не окремою копією
+компонента;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">App</span></code> показує вертикальний і горизонтальний варіанти;</p></li>
+<li><p>у коді немає поведінки, керованої станом, або технологій із наступних лабораторних.</p></li>
+</ol>
+</section>
+<section id="id12">
+<h2><span class="section-number">1.8. </span>Самоперевірка<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>Дайте відповіді на запитання і будьте готові пояснити їх під час захисту:</p>
+<ol class="arabic simple">
+<li><p>Чим компонент <code class="docutils literal notranslate"><span class="pre">Light</span></code> відрізняється від конкретного <code class="docutils literal notranslate"><span class="pre">&lt;Light</span> <span class="pre">...</span> <span class="pre">/&gt;</span></code> у JSX?</p></li>
+<li><p>Який компонент є батьківським для <code class="docutils literal notranslate"><span class="pre">Light</span></code>, коли сигнал використовується всередині
+<code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>?</p></li>
+<li><p>Чому колір передається через <code class="docutils literal notranslate"><span class="pre">props</span></code>, а не жорстко записується всередині
+<code class="docutils literal notranslate"><span class="pre">Light</span></code>?</p></li>
+<li><p>Що саме повинно змінитися, якщо завтра потрібно показати синій тестовий
+сигнал: реалізація <code class="docutils literal notranslate"><span class="pre">Light</span></code> чи дані, які йому передає батьківський компонент?</p></li>
+<li><p>Чому вертикальний і горизонтальний варіанти не потребують двох незалежних
+реалізацій <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>?</p></li>
+<li><p>Яка відповідальність належить <code class="docutils literal notranslate"><span class="pre">Light</span></code>, а яка — <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>?</p></li>
+<li><p>Які частини <code class="docutils literal notranslate"><span class="pre">App</span></code> можна змінити, не змінюючи контракт <code class="docutils literal notranslate"><span class="pre">Light</span></code>?</p></li>
+</ol>
+</section>
+<section id="id13">
+<h2><span class="section-number">1.9. </span>Критерії приймання<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p>Робота вважається виконаною, якщо одночасно виконані всі умови:</p>
+<ul class="simple">
+<li><p>React/Vite-застосунок запускається без помилок під час виконання;</p></li>
+<li><p>є повторно використовуваний компонент <code class="docutils literal notranslate"><span class="pre">Light</span></code> в окремому модулі;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Light</span></code> отримує колір через <code class="docutils literal notranslate"><span class="pre">props</span></code>;</p></li>
+<li><p>є компонент <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> в окремому модулі;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> використовує три екземпляри <code class="docutils literal notranslate"><span class="pre">Light</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">App</span></code> демонструє вертикальний і горизонтальний світлофори;</p></li>
+<li><p>обидві орієнтації використовують спільну компонентну логіку, а не дві копії
+реалізації;</p></li>
+<li><p>вигляд сигналів та орієнтація однозначно читаються;</p></li>
+<li><p>студент може пояснити зв’язок <code class="docutils literal notranslate"><span class="pre">App</span> <span class="pre">→</span> <span class="pre">TrafficLights</span> <span class="pre">→</span> <span class="pre">Light</span></code> і відповідальність
+кожного рівня;</p></li>
+<li><p>у межах роботи не використано поведінку, керовану станом, Router, Context,
+таймери/ефекти, серверну частину або автентифікацію та контроль доступу.</p></li>
+</ul>
+</section>
+<section id="id14">
+<h2><span class="section-number">1.10. </span>Додаткове завдання<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p>Після виконання всіх обов’язкових вимог можна додати перевірку <code class="docutils literal notranslate"><span class="pre">props</span></code> під час виконання
+через <code class="docutils literal notranslate"><span class="pre">PropTypes</span></code> і перевірити щонайменше <code class="docutils literal notranslate"><span class="pre">color</span></code> та <code class="docutils literal notranslate"><span class="pre">orientation</span></code>.</p>
+<p>Це додаткове завдання не повинно змінювати основну компонентну модель і не є
+умовою отримання CP1.</p>
+</section>
+<section id="id15">
+<h2><span class="section-number">1.11. </span>Межі цієї роботи<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<p>У ЛР1 свідомо <strong>не вводимо</strong> механізми наступних етапів:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">useState</span></code> і обробку подій — ЛР2;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">useEffect</span></code>, таймери й автоматичний цикл — ЛР3;</p></li>
+<li><p>React Router і Context — ЛР4;</p></li>
+<li><p>запити до GAS і серверної частини — ЛР5;</p></li>
+<li><p>Tailwind CSS та DaisyUI як базовий набір засобів інтерфейсу — ЛР6;</p></li>
+<li><p>автентифікацію, контроль доступу та захищені маршрути — ЛР7.</p></li>
+</ul>
+<p>Не додавайте ці механізми «про запас»: вони змінюють основну тему роботи й
+ускладнюють перевірку того, чи засвоєна композиція компонентів.</p>
+</section>
+<section id="id16">
+<h2><span class="section-number">1.12. </span>Результат<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<p><strong>CP1:</strong> працездатний статичний React/Vite-застосунок «Світлофор» з повторно
+використовуваними <code class="docutils literal notranslate"><span class="pre">Light</span></code> і <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>, передаванням даних через <code class="docutils literal notranslate"><span class="pre">props</span></code> і
+двома варіантами орієнтації без дублювання компонентної логіки.</p>
+<p>Цей стан проєкту є вхідною точкою для ЛР2, де до вже готової компонентної
+структури буде додано стан і поведінку, керовану подіями.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">попередній</p>
+        <p class="prev-next-title">Web-програмування: лабораторні роботи</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../lab02/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">наступний</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Лабораторна робота №2. Стан, події та похідний інтерфейс</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Зміст
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1.1. Мета роботи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.2. Результати навчання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.3. Передумови та початковий стан проєкту</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.4. Теоретичний мінімум</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.4.1. Компонент і екземпляр компонента</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#props">1.4.2. <code class="docutils literal notranslate"><span class="pre">props</span></code> як вхідні дані компонента</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.4.3. Композиція компонентів</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.4.4. Один контракт — кілька варіантів</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.5. Постановка задачі</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">1.6. Виконання</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#react-vite">1.6.1. Крок 1. Підготуйте React/Vite-проєкт</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#light">1.6.2. Крок 2. Створіть компонент <code class="docutils literal notranslate"><span class="pre">Light</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trafficlights">1.6.3. Крок 3. Створіть компонент <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">1.6.4. Крок 4. Додайте орієнтацію через <code class="docutils literal notranslate"><span class="pre">props</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#app">1.6.5. Крок 5. Зберіть демонстрацію в <code class="docutils literal notranslate"><span class="pre">App</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">1.7. Контрольні точки виконання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">1.8. Самоперевірка</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">1.9. Критерії приймання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">1.10. Додаткове завдання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">1.11. Межі цієї роботи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">1.12. Результат</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Автор Author name not set
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

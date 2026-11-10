@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+
+
+<html lang="uk" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Web-програмування: лабораторні роботи &#8212; Web-програмування: лабораторні роботи</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=0a3c33aa"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <link rel="index" title="Індекс" href="genindex.html" />
+    <link rel="search" title="Пошук" href="search.html" />
+    <link rel="next" title="1. Лабораторна робота №1. Компонентна модель «Світлофора»" href="labs/lab01/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="uk"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Web-програмування: лабораторні роботи</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Пошук" aria-label="Пошук" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Пошук</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="labs/lab01/index.html">1. Лабораторна робота №1. Компонентна модель «Світлофора»</a></li>
+<li class="toctree-l1"><a class="reference internal" href="labs/lab02/index.html">2. Лабораторна робота №2. Стан, події та похідний інтерфейс</a></li>
+<li class="toctree-l1"><a class="reference internal" href="labs/lab03/index.html">3. Лабораторна робота №3. Поведінка в часі, ефекти та анімація</a></li>
+<li class="toctree-l1"><a class="reference internal" href="labs/lab04/index.html">4. Лабораторна робота №4. Маршрутизація та спільний стан застосунку</a></li>
+<li class="toctree-l1"><a class="reference internal" href="labs/lab05/index.html">5. Лабораторна робота №5. Асинхронні дані та GAS API</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Завантажте цю сторінку">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Завантажити вихідний файл"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Друк у форматі PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Повноекранний режим"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Пошук" aria-label="Пошук" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Web-програмування: лабораторні роботи</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="web">
+<h1>Web-програмування: лабораторні роботи<a class="headerlink" href="#web" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="labs/lab01/index.html">1. Лабораторна робота №1. Компонентна модель «Світлофора»</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab01/index.html#id1">1.1. Мета роботи</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab01/index.html#id2">1.2. Результати навчання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab01/index.html#id3">1.3. Передумови та початковий стан проєкту</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab01/index.html#id4">1.4. Теоретичний мінімум</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab01/index.html#id8">1.5. Постановка задачі</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab01/index.html#id9">1.6. Виконання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab01/index.html#id11">1.7. Контрольні точки виконання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab01/index.html#id12">1.8. Самоперевірка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab01/index.html#id13">1.9. Критерії приймання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab01/index.html#id14">1.10. Додаткове завдання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab01/index.html#id15">1.11. Межі цієї роботи</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab01/index.html#id16">1.12. Результат</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="labs/lab02/index.html">2. Лабораторна робота №2. Стан, події та похідний інтерфейс</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab02/index.html#id1">2.1. Мета роботи</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab02/index.html#id2">2.2. Результати навчання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab02/index.html#id3">2.3. Передумови та вхідний стан</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab02/index.html#id4">2.4. Теоретичний мінімум</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab02/index.html#id9">2.5. Постановка задачі</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab02/index.html#id10">2.6. Виконання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab02/index.html#id15">2.7. Контрольні точки виконання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab02/index.html#id16">2.8. Самоперевірка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab02/index.html#id17">2.9. Критерії приймання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab02/index.html#id18">2.10. Додаткове завдання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab02/index.html#id19">2.11. Поза основним обсягом ЛР2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab02/index.html#id20">2.12. Результат</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="labs/lab03/index.html">3. Лабораторна робота №3. Поведінка в часі, ефекти та анімація</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab03/index.html#id1">3.1. Мета роботи</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab03/index.html#id2">3.2. Результати навчання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab03/index.html#id3">3.3. Передумови та початковий стан проєкту</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab03/index.html#id4">3.4. Теоретичний мінімум</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab03/index.html#id9">3.5. Постановка задачі</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab03/index.html#id10">3.6. Виконання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab03/index.html#id17">3.7. Контрольні точки виконання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab03/index.html#id18">3.8. Самоперевірка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab03/index.html#id19">3.9. Критерії приймання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab03/index.html#id20">3.10. Додаткове завдання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab03/index.html#id21">3.11. Поза основним обсягом ЛР3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab03/index.html#id22">3.12. Результат</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="labs/lab04/index.html">4. Лабораторна робота №4. Маршрутизація та спільний стан застосунку</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab04/index.html#id1">4.1. Мета роботи</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab04/index.html#id2">4.2. Результати навчання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab04/index.html#id3">4.3. Передумови та початковий стан проєкту</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab04/index.html#id4">4.4. Теоретичний мінімум</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab04/index.html#id9">4.5. Постановка задачі</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab04/index.html#id10">4.6. Виконання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab04/index.html#id16">4.7. Контрольні точки виконання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab04/index.html#id17">4.8. Самоперевірка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab04/index.html#id18">4.9. Критерії приймання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab04/index.html#id19">4.10. Додаткове завдання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab04/index.html#id20">4.11. Поза основним обсягом ЛР4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab04/index.html#id21">4.12. Результат</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="labs/lab05/index.html">5. Лабораторна робота №5. Асинхронні дані та GAS API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab05/index.html#id1">5.1. Мета роботи</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab05/index.html#id2">5.2. Результати навчання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab05/index.html#id3">5.3. Передумови та початковий стан проєкту</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab05/index.html#id4">5.4. Теоретичний мінімум</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab05/index.html#id12">5.5. Постановка задачі</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab05/index.html#id13">5.6. Виконання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab05/index.html#id22">5.7. Контрольні точки виконання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab05/index.html#id23">5.8. Самоперевірка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab05/index.html#id24">5.9. Критерії приймання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab05/index.html#id25">5.10. Додаткове завдання</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab05/index.html#id26">5.11. Поза основним обсягом ЛР5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab05/index.html#id27">5.12. Результат</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="labs/lab01/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">наступний</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Лабораторна робота №1. Компонентна модель «Світлофора»</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Автор Author name not set
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,844 @@
+
+<!DOCTYPE html>
+
+
+<html lang="uk" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2. Лабораторна робота №2. Стан, події та похідний інтерфейс &#8212; Web-програмування: лабораторні роботи</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=0a3c33aa"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'labs/lab02/index';</script>
+    <link rel="index" title="Індекс" href="../../genindex.html" />
+    <link rel="search" title="Пошук" href="../../search.html" />
+    <link rel="next" title="3. Лабораторна робота №3. Поведінка в часі, ефекти та анімація" href="../lab03/index.html" />
+    <link rel="prev" title="1. Лабораторна робота №1. Компонентна модель «Світлофора»" href="../lab01/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="uk"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Web-програмування: лабораторні роботи</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Пошук" aria-label="Пошук" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Пошук</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lab01/index.html">1. Лабораторна робота №1. Компонентна модель «Світлофора»</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Лабораторна робота №2. Стан, події та похідний інтерфейс</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab03/index.html">3. Лабораторна робота №3. Поведінка в часі, ефекти та анімація</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab04/index.html">4. Лабораторна робота №4. Маршрутизація та спільний стан застосунку</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab05/index.html">5. Лабораторна робота №5. Асинхронні дані та GAS API</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Завантажте цю сторінку">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/labs/lab02/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Завантажити вихідний файл"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Друк у форматі PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Повноекранний режим"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Пошук" aria-label="Пошук" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Лабораторна робота №2. Стан, події та похідний інтерфейс</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Зміст </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.1. Мета роботи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.2. Результати навчання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.3. Передумови та вхідний стан</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.4. Теоретичний мінімум</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#props">2.4.1. <code class="docutils literal notranslate"><span class="pre">props</span></code> і стан відповідають за різні речі</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usestate">2.4.2. <code class="docutils literal notranslate"><span class="pre">useState</span></code> і оновлення інтерфейсу</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.4.3. Подія і функція зворотного виклику</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.4.4. Хто повинен володіти станом</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.4.5. Похідні значення не потребують окремого стану</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.4.6. Стан має єдине джерело актуальних даних</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.5. Постановка задачі</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.6. Виконання</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cp1">2.6.1. Крок 1. Перетворіть CP1 на один керований світлофор</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.6.2. Крок 2. Додайте стан поточного сигналу</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#light">2.6.3. Крок 3. Передайте подію з <code class="docutils literal notranslate"><span class="pre">Light</span></code> до власника стану</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.6.4. Крок 4. Додайте статистику взаємодій</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statsbar">2.6.5. Крок 5. Створіть <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.6.6. Крок 6. Зробіть орієнтацію керованою станом</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.6.7. Крок 7. Перевірте похідний інтерфейс</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.7. Контрольні точки виконання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2.8. Самоперевірка</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">2.9. Критерії приймання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">2.10. Додаткове завдання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">2.11. Поза основним обсягом ЛР2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">2.12. Результат</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="o2">
+<span id="lab-02"></span><h1><span class="section-number">2. </span>Лабораторна робота №2. Стан, події та похідний інтерфейс<a class="headerlink" href="#o2" title="Link to this heading">#</a></h1>
+<p><strong>Контрольна точка:</strong> CP2 — інтерактивний світлофор зі станом і подіями.</p>
+<section id="id1">
+<h2><span class="section-number">2.1. </span>Мета роботи<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Навчитися зберігати змінні дані інтерфейсу у стані React (state), змінювати їх у
+відповідь на події користувача, передавати функції зворотного виклику (callback) дочірнім компонентам
+і будувати похідні елементи інтерфейсу без дублювання одного й того самого факту
+в кількох незалежних змінних стану.</p>
+</section>
+<section id="id2">
+<h2><span class="section-number">2.2. </span>Результати навчання<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Після виконання роботи ви повинні вміти:</p>
+<ul class="simple">
+<li><p>пояснити різницю між <code class="docutils literal notranslate"><span class="pre">props</span></code> і станом;</p></li>
+<li><p>створювати локальний стан за допомогою <code class="docutils literal notranslate"><span class="pre">useState</span></code>;</p></li>
+<li><p>змінювати стан через обробник події, а не прямим присвоєнням;</p></li>
+<li><p>передавати функцію зворотного виклику з батьківського компонента до дочірнього через <code class="docutils literal notranslate"><span class="pre">props</span></code>;</p></li>
+<li><p>визначати найближчого спільного власника стану, потрібного кільком дочірнім
+компонентам;</p></li>
+<li><p>піднімати стан до цього власника замість створення неузгоджених локальних копій;</p></li>
+<li><p>обчислювати похідні значення зі вже наявного стану, коли окреме збереження
+значення не потрібне.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2><span class="section-number">2.3. </span>Передумови та вхідний стан<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Початкова точка цієї роботи — <strong>CP1</strong> після ЛР1:</p>
+<ul class="simple">
+<li><p>є повторно використовуваний компонент <code class="docutils literal notranslate"><span class="pre">Light</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> складається з трьох <code class="docutils literal notranslate"><span class="pre">Light</span></code>;</p></li>
+<li><p>колір та орієнтація передаються через <code class="docutils literal notranslate"><span class="pre">props</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">App</span></code> демонструє вертикальний і горизонтальний варіанти;</p></li>
+<li><p>користувацьких подій і поведінки, керованої станом, ще немає.</p></li>
+</ul>
+<p>Новий Vite-проєкт <strong>не створюйте</strong>. Продовжуйте той самий застосунок
+«Світлофор» і збережіть компонентну модель CP1.</p>
+<div class="admonition important">
+<p class="admonition-title">Важливо</p>
+<p>Головна навчальна тема ЛР2 — <strong>локальний стан, події та власник стану</strong>.
+Інтерактивність потрібно додати до вже наявної компонентної структури, а не
+переписувати застосунок як новий проєкт.</p>
+</div>
+</section>
+<section id="id4">
+<h2><span class="section-number">2.4. </span>Теоретичний мінімум<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="props">
+<h3><span class="section-number">2.4.1. </span><code class="docutils literal notranslate"><span class="pre">props</span></code> і стан відповідають за різні речі<a class="headerlink" href="#props" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">props</span></code> приходять у компонент ззовні. Вони описують дані та можливості, які
+батьківський компонент передав дочірньому.</p>
+<p>Стан належить конкретному екземпляру компонента і зберігає дані, що можуть
+змінюватися протягом роботи застосунку.</p>
+<p>У спрощеному вигляді:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>props  → компонент отримує від батьківського компонента
+стан  → компонент зберігає як власний змінний стан
+</pre></div>
+</div>
+<p>Наприклад, <code class="docutils literal notranslate"><span class="pre">Light</span></code> може й надалі отримувати свій колір через <code class="docutils literal notranslate"><span class="pre">props</span></code>, але факт
+«який сигнал зараз активний» уже змінюється під час взаємодії. Для такого факту
+потрібен стан у компоненті, який координує весь світлофор.</p>
+</section>
+<section id="usestate">
+<h3><span class="section-number">2.4.2. </span><code class="docutils literal notranslate"><span class="pre">useState</span></code> і оновлення інтерфейсу<a class="headerlink" href="#usestate" title="Link to this heading">#</a></h3>
+<p>Хук <code class="docutils literal notranslate"><span class="pre">useState</span></code> дозволяє компоненту зберігати значення між відтвореннями та
+отримувати функцію оновлення для його зміни.</p>
+<p>Мінімальний приклад:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">selected</span><span class="p">,</span><span class="w"> </span><span class="nx">setSelected</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="s2">"red"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">selected</span></code> — поточне значення, а <code class="docutils literal notranslate"><span class="pre">setSelected(...)</span></code> повідомляє React, що стан
+потрібно змінити. Після оновлення React повторно будує відповідну частину
+інтерфейсу з новими даними.</p>
+<p>Не змінюйте стан прямим присвоєнням на кшталт <code class="docutils literal notranslate"><span class="pre">selected</span> <span class="pre">=</span> <span class="pre">&quot;green&quot;</span></code>.</p>
+</section>
+<section id="id5">
+<h3><span class="section-number">2.4.3. </span>Подія і функція зворотного виклику<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Подія користувача виникає у конкретному елементі інтерфейсу, але дані, які вона
+має змінити, не обов’язково належать цьому дочірньому компоненту.</p>
+<p>Типовий напрямок взаємодії:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TrafficLights
+├── стан
+├── обробник події
+│
+└── Light
+    └── onClick → функція зворотного виклику з props → обробник у TrafficLights
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Light</span></code> не повинен безпосередньо змінювати стан свого батьківського компонента. Він лише викликає
+функцію зворотного виклику, яку отримав через <code class="docutils literal notranslate"><span class="pre">props</span></code>, а рішення про зміну стану залишається у
+його власника.</p>
+</section>
+<section id="id6">
+<h3><span class="section-number">2.4.4. </span>Хто повинен володіти станом<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Стан потрібно розміщувати не «де зручніше написати <code class="docutils literal notranslate"><span class="pre">useState</span></code>», а там, де є
+достатньо контексту для узгодженого оновлення інтерфейсу.</p>
+<p>У цій роботі одне натискання на <code class="docutils literal notranslate"><span class="pre">Light</span></code> повинно одночасно вплинути на:</p>
+<ul class="simple">
+<li><p>активний сигнал;</p></li>
+<li><p>статистику відповідного кольору;</p></li>
+<li><p>вигляд <code class="docutils literal notranslate"><span class="pre">Light</span></code>;</p></li>
+<li><p>дані, які показує <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code>.</p></li>
+</ul>
+<p>Отже, окремий <code class="docutils literal notranslate"><span class="pre">Light</span></code> є занадто вузьким власником. Найближчий спільний власник для
+цих даних — <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> або його локальний контейнер із такою самою
+відповідальністю.</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">2.4.5. </span>Похідні значення не потребують окремого стану<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Не кожне значення, яке показує інтерфейс, потрібно зберігати через <code class="docutils literal notranslate"><span class="pre">useState</span></code>.
+Якщо його можна однозначно обчислити зі вже наявного стану під час відтворення, це
+<strong>похідне значення</strong>.</p>
+<p>Наприклад, якщо стан уже містить кількість кліків для <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">yellow</span></code> і
+<code class="docutils literal notranslate"><span class="pre">green</span></code>, то загальна кількість взаємодій може бути обчислена:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">totalClicks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">redClicks</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">yellowClicks</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">greenClicks</span>
+</pre></div>
+</div>
+<p>Окремий стан <code class="docutils literal notranslate"><span class="pre">totalClicks</span></code> у такій моделі дублював би той самий факт і міг би
+розсинхронізуватися з трьома лічильниками.</p>
+</section>
+<section id="id8">
+<h3><span class="section-number">2.4.6. </span>Стан має єдине джерело актуальних даних<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Якщо <code class="docutils literal notranslate"><span class="pre">Light</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code> повинні бачити однакове значення, не створюйте в них
+дві незалежні копії стану. Підніміть дані до найближчого спільного власника і
+передайте потрібні частини вниз через <code class="docutils literal notranslate"><span class="pre">props</span></code>.</p>
+<p>У цій лабораторній очікувана локальна структура відповідальності має виглядати
+приблизно так:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>App
+└── TrafficLights
+    ├── стан: поточний сигнал
+    ├── стан: лічильники натискань
+    ├── стан: орієнтація
+    ├── Light × 3
+    └── StatsBar
+</pre></div>
+</div>
+<p>Це ще локальне дерево однієї функціональної частини. Глобальний стан або Context тут не
+потрібні.</p>
+</section>
+</section>
+<section id="id9">
+<h2><span class="section-number">2.5. </span>Постановка задачі<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>Перетворіть статичний світлофор CP1 на інтерактивний.</p>
+<p>Після виконання роботи застосунок повинен мати таку поведінку:</p>
+<ol class="arabic simple">
+<li><p>на сторінці показано <strong>один</strong> <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>, а не дві незалежні копії для
+різних орієнтацій;</p></li>
+<li><p>натискання на <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">yellow</span></code> або <code class="docutils literal notranslate"><span class="pre">green</span></code> робить відповідний сигнал поточним;</p></li>
+<li><p>активний сигнал візуально відрізняється від неактивних;</p></li>
+<li><p>кожне натискання збільшує лічильник саме того кольору, на який натиснув
+користувач;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StatsBar</span></code> показує статистику для всіх трьох кольорів;</p></li>
+<li><p>користувач може перемикати <code class="docutils literal notranslate"><span class="pre">vertical</span></code> / <code class="docutils literal notranslate"><span class="pre">horizontal</span></code>, не створюючи другого
+незалежного світлофора;</p></li>
+<li><p>перемикання орієнтації не скидає активний сигнал або статистику;</p></li>
+<li><p>принаймні одне значення інтерфейсу, наприклад загальна кількість кліків,
+обчислюється зі стану як похідне значення.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Примітка</p>
+<p>Якщо користувач натискає вже активний сигнал, він може залишитися активним, але
+його лічильник все одно збільшується. Це дві різні частини стану: поточний
+сигнал і статистика взаємодій.</p>
+</div>
+</section>
+<section id="id10">
+<h2><span class="section-number">2.6. </span>Виконання<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<section id="cp1">
+<h3><span class="section-number">2.6.1. </span>Крок 1. Перетворіть CP1 на один керований світлофор<a class="headerlink" href="#cp1" title="Link to this heading">#</a></h3>
+<p>У ЛР1 <code class="docutils literal notranslate"><span class="pre">App</span></code> показував два екземпляри <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>, щоб продемонструвати, що
+один компонентний контракт підтримує різні орієнтації.</p>
+<p>Тепер залиште в робочому інтерфейсі <strong>один</strong> екземпляр <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>.
+Орієнтація більше не повинна визначатися двома незалежними викликами компонента:
+вона стане змінною частиною стану цього світлофора.</p>
+<p>Не видаляйте підтримку <code class="docutils literal notranslate"><span class="pre">vertical</span></code> / <code class="docutils literal notranslate"><span class="pre">horizontal</span></code> із самого контракту компонента.
+Ви змінюєте спосіб керування орієнтацією, а не відмовляєтеся від повторного
+використання компонента.</p>
+<p><strong>Перевірка 1:</strong> на сторінці є один <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>, який усе ще може бути
+відображений вертикально або горизонтально.</p>
+</section>
+<section id="id11">
+<h3><span class="section-number">2.6.2. </span>Крок 2. Додайте стан поточного сигналу<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>У компоненті, що володіє поведінкою всього світлофора, додайте стан для
+поточного активного кольору.</p>
+<p>Початкове значення виберіть явно, наприклад <code class="docutils literal notranslate"><span class="pre">red</span></code>. Воно має бути одним із
+допустимих сигналів застосунку.</p>
+<p>Розширте контракт <code class="docutils literal notranslate"><span class="pre">Light</span></code>, щоб компонент міг отримати інформацію, чи є саме цей
+сигнал активним. Від стану повинен залежати його видимий вигляд: наприклад,
+неактивні лампи можуть бути приглушеними, а активна — виділеною.</p>
+<div class="admonition important">
+<p class="admonition-title">Важливо</p>
+<p>Не створюйте <code class="docutils literal notranslate"><span class="pre">useState</span></code> окремо в кожному <code class="docutils literal notranslate"><span class="pre">Light</span></code> для ознаки <code class="docutils literal notranslate"><span class="pre">active</span></code>. Інакше три
+лампи матимуть три незалежні джерела істини й світлофор зможе опинитися в
+неузгодженому стані.</p>
+</div>
+<p><strong>Перевірка 2:</strong> зміна <code class="docutils literal notranslate"><span class="pre">currentSignal</span></code> у спільного власника стану змінює активну лампу,
+а одночасно активним відображається рівно один сигнал.</p>
+</section>
+<section id="light">
+<h3><span class="section-number">2.6.3. </span>Крок 3. Передайте подію з <code class="docutils literal notranslate"><span class="pre">Light</span></code> до власника стану<a class="headerlink" href="#light" title="Link to this heading">#</a></h3>
+<p>Зробіть <code class="docutils literal notranslate"><span class="pre">Light</span></code> інтерактивним. Компонент повинен отримувати функцію зворотного виклику через
+<code class="docutils literal notranslate"><span class="pre">props</span></code> і викликати її у відповідь на натискання користувача.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Light</span></code> знає, <strong>на який сигнал натиснули</strong>, але рішення про зміну
+<code class="docutils literal notranslate"><span class="pre">currentSignal</span></code> має залишатися в компоненті-власнику стану.</p>
+<p>Напрямок даних і події має бути таким:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TrafficLights --props--&gt; Light
+TrafficLights ← функція зворотного виклику ← натискання у Light
+</pre></div>
+</div>
+<p>Не передавайте функцію оновлення стану бездумно тільки тому, що це коротше. Контракт на
+кшталт <code class="docutils literal notranslate"><span class="pre">onSelect(color)</span></code> краще описує намір дочірнього компонента, ніж знання про
+внутрішню реалізацію стану його батьківського компонента.</p>
+<p><strong>Перевірка 3:</strong> натискання на кожен із трьох <code class="docutils literal notranslate"><span class="pre">Light</span></code> робить саме його колір
+поточним; <code class="docutils literal notranslate"><span class="pre">Light</span></code> не містить власної копії <code class="docutils literal notranslate"><span class="pre">currentSignal</span></code>.</p>
+</section>
+<section id="id12">
+<h3><span class="section-number">2.6.4. </span>Крок 4. Додайте статистику взаємодій<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>Додайте стан, який зберігає кількість кліків для <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">yellow</span></code> і <code class="docutils literal notranslate"><span class="pre">green</span></code>.
+Структуру стану виберіть так, щоб з неї було однозначно отримати лічильник для
+кожного кольору.</p>
+<p>Під час натискання один обробник повинен узгоджено виконувати дві дії на рівні
+стану застосунку:</p>
+<ol class="arabic simple">
+<li><p>зробити вибраний колір поточним;</p></li>
+<li><p>збільшити його лічильник на одиницю.</p></li>
+</ol>
+<p>Під час оновлення стану-об’єкта або стану-масиву створюйте нове значення замість прямої
+мутації попереднього об’єкта.</p>
+<p>Якщо новий стан залежить від попереднього, використовуйте форму оновлення, яка
+отримує попереднє значення:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="nx">setValue</span><span class="p">((</span><span class="nx">previous</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="cm">/* нове значення на основі previous */</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Цей фрагмент показує форму функції оновлення, а не готове рішення для ваших лічильників.</p>
+<p><strong>Перевірка 4:</strong> після послідовності кліків, наприклад
+<code class="docutils literal notranslate"><span class="pre">red</span> <span class="pre">→</span> <span class="pre">green</span> <span class="pre">→</span> <span class="pre">green</span> <span class="pre">→</span> <span class="pre">yellow</span></code>, кожний колір має правильний власний лічильник,
+а активний сигнал відповідає останньому натисканню.</p>
+</section>
+<section id="statsbar">
+<h3><span class="section-number">2.6.5. </span>Крок 5. Створіть <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code><a class="headerlink" href="#statsbar" title="Link to this heading">#</a></h3>
+<p>Винесіть відображення статистики в окремий компонент <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code>.</p>
+<p>Він повинен щонайменше показувати:</p>
+<ul class="simple">
+<li><p>кількість кліків <code class="docutils literal notranslate"><span class="pre">red</span></code>;</p></li>
+<li><p>кількість кліків <code class="docutils literal notranslate"><span class="pre">yellow</span></code>;</p></li>
+<li><p>кількість кліків <code class="docutils literal notranslate"><span class="pre">green</span></code>;</p></li>
+<li><p>загальну кількість взаємодій як похідне значення, обчислене власником стану
+зі стану;</p></li>
+<li><p>поточний активний сигнал або інший зрозумілий похідний показник.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">StatsBar</span></code> не повинен мати окремі локальні копії тих самих лічильників. Передайте
+йому потрібні дані через <code class="docutils literal notranslate"><span class="pre">props</span></code>.</p>
+<p><strong>Перевірка 5:</strong> після кожного натискання <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code> одразу показує актуальні значення,
+а загальна кількість завжди дорівнює сумі трьох лічильників.</p>
+</section>
+<section id="id13">
+<h3><span class="section-number">2.6.6. </span>Крок 6. Зробіть орієнтацію керованою станом<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>Додайте стан для орієнтації з двома допустимими значеннями: <code class="docutils literal notranslate"><span class="pre">vertical</span></code> і
+<code class="docutils literal notranslate"><span class="pre">horizontal</span></code>.</p>
+<p>Додайте елемент керування, який перемикає орієнтацію. Він може знаходитися у <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code>
+або в іншому невеликому дочірньому компоненті, але власником стану залишається
+той самий локальний власник світлофора.</p>
+<p>Якщо елемент керування знаходиться в <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code>, передайте обробник перемикання через
+<code class="docutils literal notranslate"><span class="pre">props</span></code>. Це дає ще один приклад того самого патерну:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>стан власника → props → дочірній інтерфейс
+обробник власника ← функція зворотного виклику ← подія дочірнього компонента
+</pre></div>
+</div>
+<p>Перемикання компонування не повинно створювати новий незалежний екземпляр світлофора,
+скидати лічильники або змінювати активний сигнал.</p>
+<p><strong>Перевірка 6:</strong> після кількох кліків змініть орієнтацію кілька разів. Значення
+статистики й поточний сигнал повинні залишитися незмінними, а компонування —
+перемикатися.</p>
+</section>
+<section id="id14">
+<h3><span class="section-number">2.6.7. </span>Крок 7. Перевірте похідний інтерфейс<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>Знайдіть у своєму інтерфейсі принаймні одне значення, яке можна обчислити зі
+стану без окремого <code class="docutils literal notranslate"><span class="pre">useState</span></code>.</p>
+<p>Базовий варіант — <code class="docutils literal notranslate"><span class="pre">totalClicks</span></code>. Додатковим похідним значенням може бути текст
+на кшталт <code class="docutils literal notranslate"><span class="pre">Вертикальна</span> <span class="pre">орієнтація</span></code> / <code class="docutils literal notranslate"><span class="pre">Горизонтальна</span> <span class="pre">орієнтація</span></code>, якщо він
+однозначно походить із <code class="docutils literal notranslate"><span class="pre">orientation</span></code>.</p>
+<p>Перевірте, що такого дублюючого стану в коді немає.</p>
+<div class="admonition warning">
+<p class="admonition-title">Попередження</p>
+<p>Не створюйте окремий стан лише для того, щоб зберігати суму лічильників або текст,
+який повністю визначається іншим станом. Два джерела одного факту рано чи пізно
+можуть розійтися.</p>
+</div>
+<p><strong>Перевірка 7:</strong> похідні значення коректно змінюються після оновлення базового
+стану без окремих викликів функцій оновлення для їх синхронізації.</p>
+</section>
+</section>
+<section id="id15">
+<h2><span class="section-number">2.7. </span>Контрольні точки виконання<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<p>Перед завершенням роботи послідовно перевірте:</p>
+<ol class="arabic simple">
+<li><p>CP1-компоненти <code class="docutils literal notranslate"><span class="pre">Light</span></code> і <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code> збережені, але в робочому UI є один
+керований світлофор;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">currentSignal</span></code> має одного власника стану й визначає активну лампу;</p></li>
+<li><p>натискання у <code class="docutils literal notranslate"><span class="pre">Light</span></code> передається компоненту-власнику стану через функцію зворотного виклику;</p></li>
+<li><p>натискання одночасно оновлює активний сигнал і правильний лічильник;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StatsBar</span></code> показує узгоджені дані для трьох кольорів;</p></li>
+<li><p>орієнтація перемикається через стан без втрати лічильників і поточного сигналу;</p></li>
+<li><p>загальна кількість або інший показник обчислюється як похідне значення;</p></li>
+<li><p>у дочірніх компонентах немає дубльованих копій стану застосунку.</p></li>
+</ol>
+</section>
+<section id="id16">
+<h2><span class="section-number">2.8. </span>Самоперевірка<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<p>Дайте відповіді на запитання і будьте готові пояснити їх під час захисту:</p>
+<ol class="arabic simple">
+<li><p>Чим <code class="docutils literal notranslate"><span class="pre">state</span></code> відрізняється від <code class="docutils literal notranslate"><span class="pre">props</span></code> у вашому застосунку?</p></li>
+<li><p>Який компонент володіє <code class="docutils literal notranslate"><span class="pre">currentSignal</span></code> і чому саме він?</p></li>
+<li><p>Чому кожний <code class="docutils literal notranslate"><span class="pre">Light</span></code> не зберігає власний стан <code class="docutils literal notranslate"><span class="pre">active</span></code>?</p></li>
+<li><p>Як натискання, що виникло всередині <code class="docutils literal notranslate"><span class="pre">Light</span></code>, доходить до обробника, який змінює
+стан?</p></li>
+<li><p>Що станеться, якщо напряму змінити стан-об’єкт замість створення нового
+значення?</p></li>
+<li><p>Чому <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code> отримує лічильники через <code class="docutils literal notranslate"><span class="pre">props</span></code>, а не створює їх заново?</p></li>
+<li><p>Чому <code class="docutils literal notranslate"><span class="pre">totalClicks</span></code> не потребує окремого <code class="docutils literal notranslate"><span class="pre">useState</span></code>?</p></li>
+<li><p>Який стан є спільним для <code class="docutils literal notranslate"><span class="pre">Light</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code>, і де знаходиться їхній
+найближчий спільний власник?</p></li>
+<li><p>Чому перемикання орієнтації не повинно скидати статистику?</p></li>
+<li><p>Яка різниця між «станом застосунку» та «значенням, похідним від стану»?</p></li>
+</ol>
+</section>
+<section id="id17">
+<h2><span class="section-number">2.9. </span>Критерії приймання<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>Робота вважається виконаною, якщо одночасно виконані всі умови:</p>
+<ul class="simple">
+<li><p>застосунок продовжує компонентну модель CP1;</p></li>
+<li><p>на сторінці працює один керований <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>;</p></li>
+<li><p>натискання на сигнал робить відповідний колір поточним/активним;</p></li>
+<li><p>те саме натискання збільшує лічильник відповідного кольору;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StatsBar</span></code> показує актуальні значення для <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">yellow</span></code> і <code class="docutils literal notranslate"><span class="pre">green</span></code>;</p></li>
+<li><p>загальну кількість або інший показник реалізовано як похідне значення без дублювання стану;</p></li>
+<li><p>орієнтація справді перемикає компонування через стан;</p></li>
+<li><p>перемикання орієнтації не скидає лічильники або поточний сигнал;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Light</span></code> отримує потрібні дані та функцію зворотного виклику через <code class="docutils literal notranslate"><span class="pre">props</span></code> і не змінює стан батьківського
+компонента напряму;</p></li>
+<li><p>стан, потрібний <code class="docutils literal notranslate"><span class="pre">Light</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code>, має одного зрозумілого локального власника;</p></li>
+<li><p>студент може пояснити напрямок потоку даних і подій між
+<code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>, <code class="docutils literal notranslate"><span class="pre">Light</span></code> та <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code>.</p></li>
+</ul>
+</section>
+<section id="id18">
+<h2><span class="section-number">2.10. </span>Додаткове завдання<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>Після виконання всіх обов’язкових вимог можна представити сигнали як масив
+об’єктів предметних даних, наприклад із полями <code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">color</span></code>, <code class="docutils literal notranslate"><span class="pre">description</span></code> та
+поточним <code class="docutils literal notranslate"><span class="pre">count</span></code>, і побудувати повторювану частину UI через <code class="docutils literal notranslate"><span class="pre">map</span></code>.</p>
+<p>Це розширення прийнятне лише тоді, коли студент і після рефакторингу може чітко
+показати:</p>
+<ul class="simple">
+<li><p>де знаходиться стан;</p></li>
+<li><p>хто його власник;</p></li>
+<li><p>як подія з <code class="docutils literal notranslate"><span class="pre">Light</span></code> змінює стан;</p></li>
+<li><p>які значення є похідними.</p></li>
+</ul>
+<p>Використання масиву або <code class="docutils literal notranslate"><span class="pre">map</span></code> саме по собі не є критерієм CP2.</p>
+</section>
+<section id="id19">
+<h2><span class="section-number">2.11. </span>Поза основним обсягом ЛР2<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>Автоматична поведінка в часі, маршрутизація і глобальний стан, серверне
+збереження, UI-фреймворки та авторизація будуть послідовно додані в наступних
+роботах.</p>
+<p>У межах CP2 не потрібно розв’язувати ці майбутні задачі наперед. Зосередьтеся
+на локальному стані одного світлофора, керованому подіями, та зрозумілому володінні станом.</p>
+</section>
+<section id="id20">
+<h2><span class="section-number">2.12. </span>Результат<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p><strong>CP2:</strong> працездатний інтерактивний React-застосунок «Світлофор», у якому один
+локальний власник стану керує поточним сигналом, лічильниками й орієнтацією; події з
+<code class="docutils literal notranslate"><span class="pre">Light</span></code> передаються через функцію зворотного виклику; <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code> відображає узгоджену статистику;
+похідні значення обчислюються зі стану без дублювання джерел актуальних даних.</p>
+<p>Цей стан проєкту є вхідною точкою для ЛР3, де до вже готової поведінки, керованої подіями,
+буде додано автоматичний цикл у часі та ефекти життєвого циклу.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../lab01/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">попередній</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Лабораторна робота №1. Компонентна модель «Світлофора»</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../lab03/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">наступний</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Лабораторна робота №3. Поведінка в часі, ефекти та анімація</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Зміст
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.1. Мета роботи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.2. Результати навчання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.3. Передумови та вхідний стан</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.4. Теоретичний мінімум</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#props">2.4.1. <code class="docutils literal notranslate"><span class="pre">props</span></code> і стан відповідають за різні речі</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usestate">2.4.2. <code class="docutils literal notranslate"><span class="pre">useState</span></code> і оновлення інтерфейсу</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.4.3. Подія і функція зворотного виклику</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.4.4. Хто повинен володіти станом</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.4.5. Похідні значення не потребують окремого стану</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.4.6. Стан має єдине джерело актуальних даних</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.5. Постановка задачі</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.6. Виконання</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cp1">2.6.1. Крок 1. Перетворіть CP1 на один керований світлофор</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.6.2. Крок 2. Додайте стан поточного сигналу</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#light">2.6.3. Крок 3. Передайте подію з <code class="docutils literal notranslate"><span class="pre">Light</span></code> до власника стану</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.6.4. Крок 4. Додайте статистику взаємодій</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statsbar">2.6.5. Крок 5. Створіть <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.6.6. Крок 6. Зробіть орієнтацію керованою станом</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.6.7. Крок 7. Перевірте похідний інтерфейс</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.7. Контрольні точки виконання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2.8. Самоперевірка</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">2.9. Критерії приймання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">2.10. Додаткове завдання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">2.11. Поза основним обсягом ЛР2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">2.12. Результат</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Автор Author name not set
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

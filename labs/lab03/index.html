@@ -1,0 +1,931 @@
+
+<!DOCTYPE html>
+
+
+<html lang="uk" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3. Лабораторна робота №3. Поведінка в часі, ефекти та анімація &#8212; Web-програмування: лабораторні роботи</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=0a3c33aa"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'labs/lab03/index';</script>
+    <link rel="index" title="Індекс" href="../../genindex.html" />
+    <link rel="search" title="Пошук" href="../../search.html" />
+    <link rel="next" title="4. Лабораторна робота №4. Маршрутизація та спільний стан застосунку" href="../lab04/index.html" />
+    <link rel="prev" title="2. Лабораторна робота №2. Стан, події та похідний інтерфейс" href="../lab02/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="uk"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Web-програмування: лабораторні роботи</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Пошук" aria-label="Пошук" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Пошук</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lab01/index.html">1. Лабораторна робота №1. Компонентна модель «Світлофора»</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab02/index.html">2. Лабораторна робота №2. Стан, події та похідний інтерфейс</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Лабораторна робота №3. Поведінка в часі, ефекти та анімація</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab04/index.html">4. Лабораторна робота №4. Маршрутизація та спільний стан застосунку</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab05/index.html">5. Лабораторна робота №5. Асинхронні дані та GAS API</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Завантажте цю сторінку">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/labs/lab03/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Завантажити вихідний файл"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Друк у форматі PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Повноекранний режим"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Пошук" aria-label="Пошук" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Лабораторна робота №3. Поведінка в часі, ефекти та анімація</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Зміст </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3.1. Мета роботи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3.2. Результати навчання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.3. Передумови та початковий стан проєкту</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">3.4. Теоретичний мінімум</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3.4.1. Подія і ефект — не одне й те саме</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#useeffect">3.4.2. <code class="docutils literal notranslate"><span class="pre">useEffect</span></code>: налаштування, залежності та очищення</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3.4.3. Таймер має життєвий цикл</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3.4.4. Залежності — це частина логіки ефекту</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yellow">3.4.5. Чому <code class="docutils literal notranslate"><span class="pre">yellow</span></code> у циклі потребує позиції, а не лише кольору</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strict-mode">3.4.6. Strict Mode як перевірка очищення</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">3.4.7. Анімація відображає стан</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">3.5. Постановка задачі</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">3.6. Виконання</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">3.6.1. Крок 1. Визначте модель фаз автоматичного циклу</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.6.2. Крок 2. Додайте стан автоматичного режиму</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3.6.3. Крок 3. Створіть ефект для життєвого циклу таймера</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">3.6.4. Крок 4. Перевірте очищення, а не лише видимий результат</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cp2">3.6.5. Крок 5. Збережіть ручну взаємодію і статистику CP2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">3.6.6. Крок 6. Додайте візуальний перехід</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3.6.7. Крок 7. Проаналізуйте залежності ефекту</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3.7. Контрольні точки виконання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">3.8. Самоперевірка</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">3.9. Критерії приймання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">3.10. Додаткове завдання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">3.11. Поза основним обсягом ЛР3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">3.12. Результат</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="o3">
+<span id="lab-03"></span><h1><span class="section-number">3. </span>Лабораторна робота №3. Поведінка в часі, ефекти та анімація<a class="headerlink" href="#o3" title="Link to this heading">#</a></h1>
+<p><strong>Контрольна точка:</strong> CP3 — автоматичний світлофор із керованим життєвим циклом
+часової поведінки.</p>
+<section id="id1">
+<h2><span class="section-number">3.1. </span>Мета роботи<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Навчитися додавати до React-застосунку поведінку, яка відбувається <strong>з часом</strong>, а
+не лише у відповідь на безпосередню дію користувача: запускати й зупиняти таймер
+через <code class="docutils literal notranslate"><span class="pre">useEffect</span></code>, коректно виконувати функцію очищення (cleanup), керувати залежностями ефекту та
+відображати зміни стану за допомогою візуального переходу.</p>
+</section>
+<section id="id2">
+<h2><span class="section-number">3.2. </span>Результати навчання<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Після виконання роботи ви повинні вміти:</p>
+<ul class="simple">
+<li><p>пояснити різницю між оновленням, керованим подією, і побічним ефектом;</p></li>
+<li><p>використовувати <code class="docutils literal notranslate"><span class="pre">useEffect</span></code> для створення ефекту React (Effect) і синхронізації
+компонента з API таймерів браузера;</p></li>
+<li><p>пояснити роль масиву залежностей та визначати реактивні значення, від яких залежить
+ефект;</p></li>
+<li><p>повертати функцію очищення, що зупиняє попередній таймер;</p></li>
+<li><p>організувати «Запустити» / «Зупинити», не створюючи паралельних інтервалів;</p></li>
+<li><p>реалізувати автоматичний цикл сигналів
+<code class="docutils literal notranslate"><span class="pre">red</span> <span class="pre">→</span> <span class="pre">yellow</span> <span class="pre">→</span> <span class="pre">green</span> <span class="pre">→</span> <span class="pre">yellow</span> <span class="pre">→</span> <span class="pre">red</span></code>;</p></li>
+<li><p>зберегти ручну взаємодію і статистику з CP2;</p></li>
+<li><p>використовувати CSS-перехід або іншу анімацію як <strong>відображення стану</strong>,
+а не як друге джерело стану застосунку.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2><span class="section-number">3.3. </span>Передумови та початковий стан проєкту<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Початковою точкою є <strong>CP2</strong> — результат ЛР2. У застосунку вже мають бути:</p>
+<ul class="simple">
+<li><p>компоненти <code class="docutils literal notranslate"><span class="pre">TrafficLights</span></code>, <code class="docutils literal notranslate"><span class="pre">Light</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code>;</p></li>
+<li><p>локальний власник стану світлофора;</p></li>
+<li><p>поточний/активний сигнал;</p></li>
+<li><p>лічильники для <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">yellow</span></code> і <code class="docutils literal notranslate"><span class="pre">green</span></code>;</p></li>
+<li><p>ручне натискання через функцію зворотного виклику з <code class="docutils literal notranslate"><span class="pre">Light</span></code> до власника стану;</p></li>
+<li><p>керована орієнтація <code class="docutils literal notranslate"><span class="pre">vertical</span></code> / <code class="docutils literal notranslate"><span class="pre">horizontal</span></code>;</p></li>
+<li><p>похідний інтерфейс без дублювання джерел актуального стану.</p></li>
+</ul>
+<p>Не створюйте новий Vite-проєкт і не копіюйте попередню роботу в інший каталог.
+Продовжуйте той самий наскрізний проєкт «Світлофор».</p>
+<div class="admonition important">
+<p class="admonition-title">Важливо</p>
+<p>ЛР3 не замінює поведінку ЛР2, керовану подіями. Вона додає <strong>ще один спосіб зміни
+того самого стану предметної області</strong> — автоматичне перемикання з часом.</p>
+</div>
+</section>
+<section id="id4">
+<h2><span class="section-number">3.4. </span>Теоретичний мінімум<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="id5">
+<h3><span class="section-number">3.4.1. </span>Подія і ефект — не одне й те саме<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Обробник події виконує код тому, що користувач здійснив конкретну дію:
+натиснув кнопку, клікнув на сигнал або змінив елемент керування.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>подія користувача → обробник → оновлення стану → відтворення
+</pre></div>
+</div>
+<p>Ефект запускається не як пряме продовження натискання. Він описує синхронізацію
+компонента з чимось поза звичайним циклом відтворення React: API таймерів, мережею,
+підпискою або іншим зовнішнім механізмом.</p>
+<p>Для цієї лабораторної таким зовнішнім механізмом є браузерний таймер:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>відтворення → налаштування ефекту → таймер працює → функція зворотного виклику таймера → оновлення стану → відтворення
+</pre></div>
+</div>
+<p>Тому «Запустити» не повинен безпосередньо створювати нескінченну кількість
+<code class="docutils literal notranslate"><span class="pre">setInterval</span></code>. Обробник події змінює стан автоматичного режиму, а ефект уже
+синхронізує наявність таймера з цим станом.</p>
+</section>
+<section id="useeffect">
+<h3><span class="section-number">3.4.2. </span><code class="docutils literal notranslate"><span class="pre">useEffect</span></code>: налаштування, залежності та очищення<a class="headerlink" href="#useeffect" title="Link to this heading">#</a></h3>
+<p>Базова форма ефекту React:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// налаштування</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// очищення</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="cm">/* залежності */</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>У цій моделі:</p>
+<ul class="simple">
+<li><p><strong>налаштування</strong> запускає зовнішній процес;</p></li>
+<li><p><strong>залежності</strong> визначають, коли попереднє налаштування більше не відповідає поточним
+реактивним значенням;</p></li>
+<li><p><strong>очищення</strong> зупиняє або скасовує те, що створило попереднє налаштування.</p></li>
+</ul>
+<p>Для таймера налаштування й очищення мають бути симетричними:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>setInterval(...)  ↔  clearInterval(...)
+</pre></div>
+</div>
+<p>Очищення виконується не лише під час демонтування компонента. React також викликає його перед
+повторним запуском ефекту, якщо змінилися залежності. Саме ця властивість
+дозволяє безпечно реагувати на «Запустити», «Зупинити» або зміну інтервалу.</p>
+<p>Офіційна документація React описує ефект саме як синхронізацію із зовнішньою
+системою та вимагає, щоб очищення зупиняло або скасовувало те, що створило налаштування:
+<a class="reference external" href="https://react.dev/reference/react/useEffect">React: <code class="docutils literal notranslate"><span class="pre">useEffect</span></code></a>.</p>
+</section>
+<section id="id6">
+<h3><span class="section-number">3.4.3. </span>Таймер має життєвий цикл<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Розглянемо абстрактний приклад, не пов’язаний із готовим рішенням світлофора:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">running</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">timerId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setInterval</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setTick</span><span class="p">((</span><span class="nx">previous</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">previous</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+<span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="nx">delay</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timerId</span><span class="p">);</span>
+<span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="nx">running</span><span class="p">,</span><span class="w"> </span><span class="nx">delay</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>Тут таймер існує лише тоді, коли <code class="docutils literal notranslate"><span class="pre">running</span> <span class="pre">===</span> <span class="pre">true</span></code>.</p>
+<p>Коли <code class="docutils literal notranslate"><span class="pre">running</span></code> змінюється з <code class="docutils literal notranslate"><span class="pre">true</span></code> на <code class="docutils literal notranslate"><span class="pre">false</span></code>, React спочатку виконує очищення
+попереднього ефекту, й інтервал припиняється. Повторне натискання «Запустити» створить новий
+таймер, а не додасть ще один поверх старого.</p>
+<div class="admonition warning">
+<p class="admonition-title">Попередження</p>
+<p>Не зберігайте <code class="docutils literal notranslate"><span class="pre">timerId</span></code> як глобальну змінну модуля й не використовуйте таймер як
+прихований змінний стан. Єдиним джерелом актуального стану для режиму роботи має залишатися стан
+React, а ефект лише синхронізує з ним зовнішній таймер.</p>
+</div>
+</section>
+<section id="id7">
+<h3><span class="section-number">3.4.4. </span>Залежності — це частина логіки ефекту<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Масив залежностей не є списком, який потрібно «підібрати, щоб перестало
+перерендерюватися». Він описує реактивні значення, що використовуються під час налаштування й
+очищення ефекту.</p>
+<p>Якщо ефект залежить від <code class="docutils literal notranslate"><span class="pre">isAutomatic</span></code> та <code class="docutils literal notranslate"><span class="pre">intervalMs</span></code>, ці значення повинні бути
+узгоджені з масивом залежностей. Якщо всередині ефекту використовується стан,
+який оновлюється на основі попереднього значення, функціональна форма оновлення часто
+дозволяє не перетворювати це значення на причину створення нового інтервалу після
+кожного кроку таймера.</p>
+<p>Наприклад:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="nx">setIndex</span><span class="p">((</span><span class="nx">previous</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="cm">/* наступний index на основі previous */</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Це та сама функціональна форма оновлення, яку ви вже використовували в ЛР2 для стану,
+що залежить від попереднього значення.</p>
+</section>
+<section id="yellow">
+<h3><span class="section-number">3.4.5. </span>Чому <code class="docutils literal notranslate"><span class="pre">yellow</span></code> у циклі потребує позиції, а не лише кольору<a class="headerlink" href="#yellow" title="Link to this heading">#</a></h3>
+<p>Базовий цикл має чотири фази:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>red → yellow → green → yellow → red
+</pre></div>
+</div>
+<p>Колір <code class="docutils literal notranslate"><span class="pre">yellow</span></code> зустрічається двічі. Якщо зберігати тільки рядок
+<code class="docutils literal notranslate"><span class="pre">currentSignal</span> <span class="pre">===</span> <span class="pre">&quot;yellow&quot;</span></code>, неможливо однозначно визначити, що буде далі:
+<code class="docutils literal notranslate"><span class="pre">green</span></code> чи <code class="docutils literal notranslate"><span class="pre">red</span></code>.</p>
+<p>Тому для автоматичного циклу зручно мати <strong>позицію у послідовності</strong>, наприклад
+індекс фази, а видимий колір отримувати як похідне значення:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>phaseIndex → cycle[phaseIndex] → currentSignal
+</pre></div>
+</div>
+<p>Це продовжує принцип ЛР2: не створюйте два незалежні стани для одного факту,
+якщо одне значення можна однозначно вивести з іншого.</p>
+<p>Точну структуру <code class="docutils literal notranslate"><span class="pre">cycle</span></code> і назву стану оберіть самостійно. Важливо, щоб у
+застосунку було <strong>єдине зрозуміле джерело актуального стану</strong> для поточної фази.</p>
+</section>
+<section id="strict-mode">
+<h3><span class="section-number">3.4.6. </span>Strict Mode як перевірка очищення<a class="headerlink" href="#strict-mode" title="Link to this heading">#</a></h3>
+<p>У режимі розробки React Strict Mode може виконати додатковий цикл
+<code class="docutils literal notranslate"><span class="pre">налаштування</span> <span class="pre">→</span> <span class="pre">очищення</span> <span class="pre">→</span> <span class="pre">налаштування</span></code> для ефекту. Це допомагає виявити некоректне очищення.
+Якщо через це інтервал запускається двічі, проблему потрібно виправляти в
+життєвому циклі ефекту, а не вимикати Strict Mode.</p>
+<p>Офіційна документація React прямо описує цю додаткову перевірку в режимі розробки:
+<a class="reference external" href="https://react.dev/reference/react/StrictMode">React: <code class="docutils literal notranslate"><span class="pre">&lt;StrictMode&gt;</span></code></a>.</p>
+</section>
+<section id="id8">
+<h3><span class="section-number">3.4.7. </span>Анімація відображає стан<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Візуальний перехід повинен відповідати фактичному стану світлофора.
+Наприклад, активна лампа може змінювати <code class="docutils literal notranslate"><span class="pre">opacity</span></code>, <code class="docutils literal notranslate"><span class="pre">filter</span></code>, <code class="docutils literal notranslate"><span class="pre">transform</span></code> або
+<code class="docutils literal notranslate"><span class="pre">box-shadow</span></code> через CSS-перехід.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>зміна стану → нові CSS-класи/props → візуальний перехід
+</pre></div>
+</div>
+<p>Небажана модель:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>анімація завершилась → «вирішила», який тепер стан предметної області
+</pre></div>
+</div>
+<p>У першому випадку стан React залишається єдиним джерелом актуального стану. У другому анімація
+починає керувати логікою предметної області, і UI може розійтися з фактичним станом.</p>
+</section>
+</section>
+<section id="id9">
+<h2><span class="section-number">3.5. </span>Постановка задачі<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>Потрібно розширити CP2 автоматичним режимом роботи світлофора.</p>
+<p>Після виконання роботи застосунок повинен мати таку поведінку:</p>
+<ol class="arabic simple">
+<li><p>ручний режим з ЛР2 збережений;</p></li>
+<li><p>є стан, який однозначно показує, чи увімкнено автоматичний режим;</p></li>
+<li><p>кнопка «Запустити» запускає автоматичне перемикання;</p></li>
+<li><p>кнопка «Зупинити» зупиняє автоматичне перемикання;</p></li>
+<li><p>базова послідовність фаз:
+<code class="docutils literal notranslate"><span class="pre">red</span> <span class="pre">→</span> <span class="pre">yellow</span> <span class="pre">→</span> <span class="pre">green</span> <span class="pre">→</span> <span class="pre">yellow</span> <span class="pre">→</span> <span class="pre">red</span></code>;</p></li>
+<li><p>одночасно працює не більше одного таймера автоматичного режиму;</p></li>
+<li><p>після «Зупинити» поточний сигнал залишається видимим і більше сам не змінюється;</p></li>
+<li><p>після «Зупинити» ручне натискання і лічильники з CP2 продовжують працювати;</p></li>
+<li><p>орієнтація і <code class="docutils literal notranslate"><span class="pre">StatsBar</span></code> з CP2 не скидаються під час запуску/зупинки;</p></li>
+<li><p>кожна автоматична зміна активного сигналу має помітний візуальний перехід;</p></li>
+<li><p>анімація не зберігає окремий стан предметної області і не визначає наступну фазу.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Примітка</p>
+<p>У базовому варіанті під час автоматичного режиму ручний вибір сигналів можна
+тимчасово вимкнути. Після «Зупинити» ручна взаємодія CP2 має працювати без зміни
+своєї семантики. Якщо ви дозволяєте ручний вибір і під час автоматичного режиму,
+поведінка наступного кроку таймера повинна бути детермінованою та поясненою.</p>
+</div>
+</section>
+<section id="id10">
+<h2><span class="section-number">3.6. </span>Виконання<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<section id="id11">
+<h3><span class="section-number">3.6.1. </span>Крок 1. Визначте модель фаз автоматичного циклу<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>Почніть не з таймера, а з <strong>послідовності предметної області</strong>.</p>
+<p>Опишіть чотири фази циклу в одному місці:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>red → yellow → green → yellow
+</pre></div>
+</div>
+<p>Після останньої фази наступною знову стає <code class="docutils literal notranslate"><span class="pre">red</span></code>.</p>
+<p>Оскільки <code class="docutils literal notranslate"><span class="pre">yellow</span></code> повторюється, модель має дозволяти відрізнити дві позиції
+циклу. Один із простих варіантів — зберігати індекс поточної фази та отримувати
+видимий колір із послідовності.</p>
+<p>Не створюйте окремий незалежний стан одночасно для <code class="docutils literal notranslate"><span class="pre">phaseIndex</span></code> і
+<code class="docutils literal notranslate"><span class="pre">currentSignal</span></code>, якщо <code class="docutils literal notranslate"><span class="pre">currentSignal</span></code> повністю визначається індексом.</p>
+<p>При переході з CP2 вам може знадобитися невеликий рефакторинг власника стану:
+ручний вибір тепер має встановлювати не лише «колір», а узгоджену позицію
+циклу. Для <code class="docutils literal notranslate"><span class="pre">red</span></code> і <code class="docutils literal notranslate"><span class="pre">green</span></code> позиція однозначна. Для <code class="docutils literal notranslate"><span class="pre">yellow</span></code> виберіть одну
+узгоджену позицію для ручного вибору й використовуйте її послідовно.</p>
+<p><strong>Перевірка 1:</strong> без таймера ви можете вручну змінити фазу/індекс і однозначно
+отримати видимий <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">yellow</span></code> або <code class="docutils literal notranslate"><span class="pre">green</span></code>; у стані немає двох незалежних
+джерел поточної фази.</p>
+</section>
+<section id="id12">
+<h3><span class="section-number">3.6.2. </span>Крок 2. Додайте стан автоматичного режиму<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>Додайте логічний стан на кшталт <code class="docutils literal notranslate"><span class="pre">isAutomatic</span></code>.</p>
+<p>«Запустити» і «Зупинити» повинні <strong>лише змінювати цей стан</strong>. Не створюйте інтервал
+безпосередньо всередині обробника натискання кнопки «Запустити».</p>
+<p>Бажана модель:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Подія «Запустити» → isAutomatic = true
+Подія «Зупинити»  → isAutomatic = false
+</pre></div>
+</div>
+<p>а життєвий цикл таймера належить ефекту.</p>
+<p>Щоб поведінка була однозначною, елемент керування, який уже відповідає поточному режиму,
+може бути <code class="docutils literal notranslate"><span class="pre">disabled</span></code>: наприклад, повторний «Запустити» під час автоматичного режиму не
+повинен створювати новий таймер.</p>
+<p><strong>Перевірка 2:</strong> багаторазове натискання «Запустити» не створює видимого прискорення або
+кількох паралельних циклів; «Зупинити» переводить застосунок у ручний режим.</p>
+</section>
+<section id="id13">
+<h3><span class="section-number">3.6.3. </span>Крок 3. Створіть ефект для життєвого циклу таймера<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>Додайте <code class="docutils literal notranslate"><span class="pre">useEffect</span></code> на рівні компонента-власника стану, який керує автоматичним режимом і
+поточною фазою.</p>
+<p>Ефект повинен:</p>
+<ol class="arabic simple">
+<li><p>нічого не запускати, якщо автоматичний режим вимкнений;</p></li>
+<li><p>під час налаштування створювати один таймер;</p></li>
+<li><p>у функції зворотного виклику переходити до наступної фази циклу;</p></li>
+<li><p>повертати функцію очищення, яка зупиняє саме цей таймер;</p></li>
+<li><p>мати масив залежностей, що відповідає реактивним значенням ефекту.</p></li>
+</ol>
+<p>Не копіюйте готовий абстрактний <code class="docutils literal notranslate"><span class="pre">setTick</span></code> із теоретичного прикладу буквально:
+ваша функція зворотного виклику повинна оновлювати стан предметної області світлофора.</p>
+<p>Для базового варіанта використайте одну зрозумілу тривалість фази, наприклад
+кілька секунд. Конкретне число не є результатом навчання — важливий життєвий цикл.</p>
+<p><strong>Перевірка 3:</strong> після «Запустити» сигнал автоматично проходить щонайменше два повні
+цикли у правильному порядку; після «Зупинити» автоматичні зміни припиняються.</p>
+</section>
+<section id="id14">
+<h3><span class="section-number">3.6.4. </span>Крок 4. Перевірте очищення, а не лише видимий результат<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>Сам факт, що кнопка «Зупинити» «ніби працює», ще не доводить коректний життєвий цикл.</p>
+<p>Перевірте сценарій:</p>
+<ol class="arabic simple">
+<li><p>«Запустити»;</p></li>
+<li><p>дочекайтеся кількох перемикань;</p></li>
+<li><p>«Зупинити»;</p></li>
+<li><p>знову «Запустити»;</p></li>
+<li><p>повторіть цикл кілька разів.</p></li>
+</ol>
+<p>Якщо після кількох повторів сигнали починають змінюватися швидше або
+непередбачувано, старі таймери, імовірно, не очищаються.</p>
+<p>Додатково будьте готові пояснити:</p>
+<ul class="simple">
+<li><p>який ресурс створює налаштування;</p></li>
+<li><p>яке значення ідентифікує цей ресурс;</p></li>
+<li><p>де саме викликається <code class="docutils literal notranslate"><span class="pre">clearInterval</span></code> або еквівалентна функція очищення;</p></li>
+<li><p>коли React виконає очищення при зміні автоматичного режиму;</p></li>
+<li><p>чому очищення потрібне, навіть якщо компонент зараз не демонтується.</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Важливо</p>
+<p>У React Strict Mode середовище розробки може навмисно виконати додатковий
+<code class="docutils literal notranslate"><span class="pre">налаштування</span> <span class="pre">→</span> <span class="pre">очищення</span> <span class="pre">→</span> <span class="pre">налаштування</span></code>. Коректний ефект повинен витримувати це без появи
+другого активного таймера.</p>
+</div>
+<p><strong>Перевірка 4:</strong> повторення «Запустити → Зупинити → Запустити» не змінює фактичну швидкість
+циклу й не створює дубльованих таймерів.</p>
+</section>
+<section id="cp2">
+<h3><span class="section-number">3.6.5. </span>Крок 5. Збережіть ручну взаємодію і статистику CP2<a class="headerlink" href="#cp2" title="Link to this heading">#</a></h3>
+<p>Автоматичний режим не повинен руйнувати вже готову модель, керовану подіями.</p>
+<p>У базовому варіанті достатньо такої політики:</p>
+<ul class="simple">
+<li><p>під час автоматичного режиму ручний вибір <code class="docutils literal notranslate"><span class="pre">Light</span></code> може бути недоступним;</p></li>
+<li><p>автоматичний перехід <strong>не збільшує</strong> лічильники ручних натискань;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StatsBar</span></code> продовжує показувати накопичену статистику ручних взаємодій;</p></li>
+<li><p>«Зупинити» повертає можливість ручного вибору;</p></li>
+<li><p>ручне натискання після «Зупинити» знову змінює активний сигнал і збільшує відповідний
+лічильник;</p></li>
+<li><p>орієнтацію можна перемикати без скидання лічильників або поточної фази.</p></li>
+</ul>
+<p>Такий поділ не змішує дві різні події: автоматичний крок таймера і натискання користувача.</p>
+<p>Якщо ви обираєте іншу політику — наприклад, дозволяєте ручне натискання під час
+автоматичного режиму — вона має бути детермінованою і не повинна породжувати другий
+таймер або дубльований стан.</p>
+<p><strong>Перевірка 5:</strong> після кількох автоматичних циклів натисніть «Зупинити», виконайте
+ручні натискання і змініть орієнтацію. CP2-функції працюють, лічильники відображають
+саме ручні взаємодії і не були скинуті автоматичним режимом.</p>
+</section>
+<section id="id15">
+<h3><span class="section-number">3.6.6. </span>Крок 6. Додайте візуальний перехід<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>Зробіть зміну активного сигналу візуально помітною.</p>
+<p>Базовий варіант не потребує додаткової JavaScript-бібліотеки. Достатньо CSS-переходу або CSS-анімації, пов’язаної з класом активного <code class="docutils literal notranslate"><span class="pre">Light</span></code>.</p>
+<p>Можливі властивості для переходу:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">opacity</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filter</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">transform</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">box-shadow</span></code>;</p></li>
+<li><p>комбінація кількох властивостей.</p></li>
+</ul>
+<p>Важлива умова: Стан React визначає, <strong>який</strong> сигнал активний, а CSS визначає,
+<strong>як</strong> ця зміна виглядає.</p>
+<p>За бажанням після виконання обов’язкових вимог можна використати бібліотеку
+<code class="docutils literal notranslate"><span class="pre">motion</span></code>, але вона не повинна ставати новим джерелом стану або вимагати зміни
+життєвого циклу таймера.</p>
+<p><strong>Перевірка 6:</strong> і ручний вибір, і автоматичний перехід мають видимий
+зворотний зв’язок інтерфейсу, але після вимкнення CSS/анімації послідовність предметної області все одно працює
+правильно.</p>
+</section>
+<section id="id16">
+<h3><span class="section-number">3.6.7. </span>Крок 7. Проаналізуйте залежності ефекту<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>Перед завершенням роботи відкрийте ваш <code class="docutils literal notranslate"><span class="pre">useEffect</span></code> і для кожного реактивного значення,
+яке використовується всередині налаштування/очищення, поясніть його зв’язок із масивом
+залежностей.</p>
+<p>Не змінюйте залежності методом «спробував — попередження зникло». Пояснення повинно
+виходити з логіки ефекту.</p>
+<p>Перевірте також, що функція зворотного виклику таймера не змушує ефект створювати новий інтервал
+після <strong>кожного</strong> автоматичного кроку таймера без потреби. Якщо наступна фаза залежить
+від попередньої, використайте функціональну форму оновлення стану або іншу узгоджену модель,
+яка не створює зайву залежність лише для читання попереднього стану.</p>
+<p><strong>Перевірка 7:</strong> студент може назвати залежності ефекту, пояснити кожну з
+них і показати, що інтервал не накопичується під час роботи.</p>
+</section>
+</section>
+<section id="id17">
+<h2><span class="section-number">3.7. </span>Контрольні точки виконання<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>Перед завершенням роботи послідовно перевірте:</p>
+<ol class="arabic simple">
+<li><p>CP2-компоненти та статистику ручних взаємодій збережені;</p></li>
+<li><p>поточна фаза має єдине джерело актуального стану, а видимий сигнал узгоджений із ним;</p></li>
+<li><p>є окремий стан автоматичного/ручного режиму;</p></li>
+<li><p>«Запустити» / «Зупинити» змінюють стан режиму, а не керують глобальним таймером вручну;</p></li>
+<li><p>ефект створює таймер тільки для автоматичного режиму;</p></li>
+<li><p>функція очищення зупиняє попередній таймер;</p></li>
+<li><p>цикл проходить <code class="docutils literal notranslate"><span class="pre">red</span> <span class="pre">→</span> <span class="pre">yellow</span> <span class="pre">→</span> <span class="pre">green</span> <span class="pre">→</span> <span class="pre">yellow</span> <span class="pre">→</span> <span class="pre">red</span></code> у правильному порядку;</p></li>
+<li><p>повторні запуски й зупинки не прискорюють цикл і не створюють дубльованих таймерів;</p></li>
+<li><p>після «Зупинити» ручне натискання, лічильники та орієнтація CP2 працюють;</p></li>
+<li><p>автоматичні кроки таймера не маскуються під ручні натискання у статистиці;</p></li>
+<li><p>візуальний перехід походить від активного стану;</p></li>
+<li><p>залежності ефекту можна пояснити через фактичні реактивні значення.</p></li>
+</ol>
+</section>
+<section id="id18">
+<h2><span class="section-number">3.8. </span>Самоперевірка<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>Дайте відповіді на запитання і будьте готові пояснити їх під час захисту:</p>
+<ol class="arabic simple">
+<li><p>Чим ефект відрізняється від обробника події у вашому застосунку?</p></li>
+<li><p>Чому «Запустити» не повинен створювати <code class="docutils literal notranslate"><span class="pre">setInterval</span></code> напряму в обробнику натискання?</p></li>
+<li><p>Який стан визначає, чи повинен таймер існувати?</p></li>
+<li><p>Що саме робить налаштування вашого ефекту?</p></li>
+<li><p>Що саме робить очищення і коли React його викликає?</p></li>
+<li><p>Чому очищення може виконатися навіть без демонтування компонента?</p></li>
+<li><p>Які реактивні значення входять до масиву залежностей вашого ефекту і чому?</p></li>
+<li><p>Чому функціональна форма оновлення корисна всередині функції зворотного виклику таймера?</p></li>
+<li><p>Чому одного значення <code class="docutils literal notranslate"><span class="pre">&quot;yellow&quot;</span></code> недостатньо, щоб визначити наступну фазу
+чотирифазного циклу?</p></li>
+<li><p>Де знаходиться єдине джерело актуального стану для поточної фази?</p></li>
+<li><p>Як повторення «Запустити/Зупинити» допомагає виявити дубльовані таймери?</p></li>
+<li><p>Чому автоматичний крок таймера не повинен автоматично збільшувати лічильник ручних натискань?</p></li>
+<li><p>Що станеться з поведінкою предметної області, якщо прибрати CSS-перехід?</p></li>
+<li><p>Чому анімація не повинна визначати наступний стан предметної області?</p></li>
+<li><p>Чому додатковий <code class="docutils literal notranslate"><span class="pre">налаштування</span> <span class="pre">→</span> <span class="pre">очищення</span> <span class="pre">→</span> <span class="pre">налаштування</span></code> у Strict Mode не є причиною
+вимикати Strict Mode?</p></li>
+</ol>
+</section>
+<section id="id19">
+<h2><span class="section-number">3.9. </span>Критерії приймання<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>Робота вважається виконаною, якщо одночасно виконані всі умови:</p>
+<ul class="simple">
+<li><p>застосунок продовжує CP2 без створення нового незалежного проєкту;</p></li>
+<li><p>є явний стан автоматичного/ручного режиму;</p></li>
+<li><p>поточна фаза / активний сигнал має єдине узгоджене джерело актуального стану;</p></li>
+<li><p>«Запустити» запускає автоматичний цикл, а «Зупинити» його зупиняє;</p></li>
+<li><p>автоматична послідовність відповідає
+<code class="docutils literal notranslate"><span class="pre">red</span> <span class="pre">→</span> <span class="pre">yellow</span> <span class="pre">→</span> <span class="pre">green</span> <span class="pre">→</span> <span class="pre">yellow</span> <span class="pre">→</span> <span class="pre">red</span></code>;</p></li>
+<li><p>таймер створюється в ефекті, а не як прихований глобальний змінний
+ресурс;</p></li>
+<li><p>Ефект повертає функцію очищення, яка зупиняє створений таймер;</p></li>
+<li><p>повторення «Запустити/Зупинити» не породжує дубльованих таймерів і не змінює швидкість циклу;</p></li>
+<li><p>після «Зупинити» ручний вибір і лічильники CP2 продовжують працювати;</p></li>
+<li><p>автоматичні кроки таймера не збільшують лічильник ручних натискань у базовій реалізації;</p></li>
+<li><p>орієнтація не скидає поточну фазу або статистику;</p></li>
+<li><p>активний сигнал має помітний візуальний перехід;</p></li>
+<li><p>візуальна анімація походить від стану React і не визначає стан предметної області;</p></li>
+<li><p>студент може пояснити масив залежностей, життєвий цикл налаштування/очищення і причину
+відсутності дубльованих таймерів.</p></li>
+</ul>
+</section>
+<section id="id20">
+<h2><span class="section-number">3.10. </span>Додаткове завдання<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p>Після виконання обов’язкових вимог реалізуйте <strong>різну тривалість фаз</strong>.
+Наприклад, <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">green</span></code> і <code class="docutils literal notranslate"><span class="pre">yellow</span></code> можуть мати різні значення тривалості.</p>
+<p>Для цього зручніше перейти від «одного інтервалу назавжди» до моделі, у якій
+поточна фаза визначає тривалість наступного переходу. Можна використати
+<code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> із функцією очищення і після кожної фази запланувати один наступний перехід.</p>
+<p>Додатковий варіант — дозволити користувачу змінювати базову тривалість через
+елемент керування. У такому разі нове значення тривалості стає реактивною залежністю ефекту,
+а старий таймер <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code>/інтервал має коректно очищатися під час зміни налаштування.</p>
+<p>Це завдання не повинно погіршувати базову гарантію: у кожний момент існує лише
+один актуальний таймер автоматичного режиму.</p>
+</section>
+<section id="id21">
+<h2><span class="section-number">3.11. </span>Поза основним обсягом ЛР3<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<p>У цій роботі не потрібно переносити стан між сторінками або робити його
+глобальним. Багатомаршрутний SPA і спільний стан світлофора з’являться в ЛР4.</p>
+<p>Так само поза основним обсягом ЛР3 залишаються:</p>
+<ul class="simple">
+<li><p>серверне збереження та GAS API;</p></li>
+<li><p>Tailwind CSS і DaisyUI як система інтерфейсу;</p></li>
+<li><p>автентифікація та захищений доступ;</p></li>
+<li><p>інфраструктура публікації та розгортання.</p></li>
+</ul>
+<p>Зосередьтеся на життєвому циклі <strong>одного локального автоматичного світлофора</strong> та
+коректній синхронізації стану React з API таймерів.</p>
+</section>
+<section id="id22">
+<h2><span class="section-number">3.12. </span>Результат<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p><strong>CP3:</strong> працездатний React-застосунок «Світлофор», який зберігає ручну
+взаємодію і статистику CP2, має керований автоматичний/ручний режим, автоматично
+проходить цикл <code class="docutils literal notranslate"><span class="pre">red</span> <span class="pre">→</span> <span class="pre">yellow</span> <span class="pre">→</span> <span class="pre">green</span> <span class="pre">→</span> <span class="pre">yellow</span> <span class="pre">→</span> <span class="pre">red</span></code>, створює й очищає таймер у
+<code class="docutils literal notranslate"><span class="pre">useEffect</span></code>, не накопичує дубльованих таймерів після повторних запусків і зупинок та показує
+візуальний перехід, керований станом активного сигналу.</p>
+<p>Цей стан проєкту є вхідною точкою для ЛР4, де локальний, але вже нетривіальний
+стан світлофора буде використано в багатомаршрутному SPA і винесено до спільного
+контексту.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../lab02/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">попередній</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Лабораторна робота №2. Стан, події та похідний інтерфейс</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../lab04/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">наступний</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Лабораторна робота №4. Маршрутизація та спільний стан застосунку</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Зміст
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3.1. Мета роботи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3.2. Результати навчання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.3. Передумови та початковий стан проєкту</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">3.4. Теоретичний мінімум</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3.4.1. Подія і ефект — не одне й те саме</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#useeffect">3.4.2. <code class="docutils literal notranslate"><span class="pre">useEffect</span></code>: налаштування, залежності та очищення</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3.4.3. Таймер має життєвий цикл</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3.4.4. Залежності — це частина логіки ефекту</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yellow">3.4.5. Чому <code class="docutils literal notranslate"><span class="pre">yellow</span></code> у циклі потребує позиції, а не лише кольору</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strict-mode">3.4.6. Strict Mode як перевірка очищення</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">3.4.7. Анімація відображає стан</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">3.5. Постановка задачі</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">3.6. Виконання</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">3.6.1. Крок 1. Визначте модель фаз автоматичного циклу</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.6.2. Крок 2. Додайте стан автоматичного режиму</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3.6.3. Крок 3. Створіть ефект для життєвого циклу таймера</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">3.6.4. Крок 4. Перевірте очищення, а не лише видимий результат</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cp2">3.6.5. Крок 5. Збережіть ручну взаємодію і статистику CP2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">3.6.6. Крок 6. Додайте візуальний перехід</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3.6.7. Крок 7. Проаналізуйте залежності ефекту</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3.7. Контрольні точки виконання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">3.8. Самоперевірка</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">3.9. Критерії приймання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">3.10. Додаткове завдання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">3.11. Поза основним обсягом ЛР3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">3.12. Результат</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Автор Author name not set
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

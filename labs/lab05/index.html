@@ -1,0 +1,1397 @@
+
+<!DOCTYPE html>
+
+
+<html lang="uk" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5. Лабораторна робота №5. Асинхронні дані та GAS API &#8212; Web-програмування: лабораторні роботи</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=0a3c33aa"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'labs/lab05/index';</script>
+    <link rel="index" title="Індекс" href="../../genindex.html" />
+    <link rel="search" title="Пошук" href="../../search.html" />
+    <link rel="prev" title="4. Лабораторна робота №4. Маршрутизація та спільний стан застосунку" href="../lab04/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="uk"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Web-програмування: лабораторні роботи</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Пошук" aria-label="Пошук" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Пошук</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../lab01/index.html">1. Лабораторна робота №1. Компонентна модель «Світлофора»</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab02/index.html">2. Лабораторна робота №2. Стан, події та похідний інтерфейс</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab03/index.html">3. Лабораторна робота №3. Поведінка в часі, ефекти та анімація</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lab04/index.html">4. Лабораторна робота №4. Маршрутизація та спільний стан застосунку</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Лабораторна робота №5. Асинхронні дані та GAS API</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Завантажте цю сторінку">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/labs/lab05/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Завантажити вихідний файл"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Друк у форматі PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Повноекранний режим"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Пошук" aria-label="Пошук" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Лабораторна робота №5. Асинхронні дані та GAS API</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Зміст </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.1. Мета роботи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.2. Результати навчання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.3. Передумови та початковий стан проєкту</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">5.4. Теоретичний мінімум</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5.4.1. Стан застосунку в пам’яті й дані, збережені на сервері, — не одне й те саме</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#google-sheet-api">5.4.2. Чому Google Sheet є сховищем, а не API</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5.4.3. Мінімальна колекція</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">5.4.4. Конфігурація не повинна бути базою даних</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api">5.4.5. Контракт API перед кодом</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">5.4.6. Чому відповідь має обгортку</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#post-text-plain">5.4.7. Чому POST використовує <code class="docutils literal notranslate"><span class="pre">text/plain</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exec-dev-url">5.4.8. <code class="docutils literal notranslate"><span class="pre">/exec</span></code> і <code class="docutils literal notranslate"><span class="pre">/dev</span></code> — різні URL розгортання</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">5.4.9. Межа доступу до даних</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">5.4.10. Стан запиту — це окремий стан застосунку</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">5.4.11. Поточний сигнал у пам’яті й збережений на сервері сигнал можуть тимчасово відрізнятися</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yellow">5.4.12. Особливість <code class="docutils literal notranslate"><span class="pre">yellow</span></code> у моделі фаз</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">5.5. Постановка задачі</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">5.6. Виконання</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">5.6.1. Крок 1. Створіть серверне сховище</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gas">5.6.2. Крок 2. Створіть вихідний код GAS у репозиторії</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#script-property">5.6.3. Крок 3. Додайте Script Property</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#json">5.6.4. Крок 4. Реалізуйте допоміжні функції JSON-відповідей</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get">5.6.5. Крок 5. Реалізуйте GET-запит колекції</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">5.6.6. Крок 6. Реалізуйте оновлення одного запису</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#web-app">5.6.7. Крок 7. Створіть версійне розгортання Web App</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gas-react">5.6.8. Крок 8. Перевірте контракт GAS окремо від React-інтерфейсу</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trafficlightsapi-js">5.6.9. Крок 9. Створіть <code class="docutils literal notranslate"><span class="pre">trafficLightsApi.js</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">5.6.10. Крок 10. Додайте стан серверного запиту до межі провайдера контексту</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5.6.11. Крок 11. Реалізуйте початкове завантаження через ефект</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">5.6.12. Крок 12. Покажіть стани завантаження, помилки та кнопку «Повторити»</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">5.6.13. Крок 13. Додайте явне «Зберегти поточний сигнал»</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5.6.14. Крок 14. Не синхронізуйте таймер із сервером автоматично</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5.6.15. Крок 15. Перевірте наскрізне збереження даних на сервері</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">5.7. Контрольні точки виконання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">5.8. Самоперевірка</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">5.9. Критерії приймання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">5.10. Додаткове завдання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">5.11. Поза основним обсягом ЛР5</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">5.12. Результат</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="o5-gas-api">
+<span id="lab-05"></span><h1><span class="section-number">5. </span>Лабораторна робота №5. Асинхронні дані та GAS API<a class="headerlink" href="#o5-gas-api" title="Link to this heading">#</a></h1>
+<p><strong>Контрольна точка:</strong> CP5</p>
+<section id="id1">
+<h2><span class="section-number">5.1. </span>Мета роботи<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Навчитися відрізняти стан застосунку в пам’яті (runtime state) від даних, збережених на сервері,
+побудувати мінімальний контракт взаємодії клієнтської частини (frontend) із серверною частиною (backend) через Google Apps Script (GAS) Web App,
+ізолювати логіку обміну даними від компонентів представлення та явно показувати
+стан завантаження, успішного виконання і помилки під час асинхронних операцій.</p>
+<p>У цій роботі ми не перетворюємо «Світлофор» на повноцінну серверну систему.
+Потрібна лише обмежена серверна можливість: прочитати збережений стан
+світлофора та явно зберегти поточний сигнал.</p>
+</section>
+<section id="id2">
+<h2><span class="section-number">5.2. </span>Результати навчання<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Після виконання роботи ви повинні вміти:</p>
+<ul class="simple">
+<li><p>пояснити різницю між станом застосунку в пам’яті та даними, збереженими на сервері;</p></li>
+<li><p>описати мінімальний контракт запиту й відповіді незалежно від конкретного інтерфейсу;</p></li>
+<li><p>створити Google Sheet як просте серверне сховище для навчальної колекції;</p></li>
+<li><p>реалізувати <code class="docutils literal notranslate"><span class="pre">doGet(e)</span></code> і <code class="docutils literal notranslate"><span class="pre">doPost(e)</span></code> у Google Apps Script Web App;</p></li>
+<li><p>повертати стабільну JSON-обгортку <code class="docutils literal notranslate"><span class="pre">{ok,</span> <span class="pre">data,</span> <span class="pre">error}</span></code>;</p></li>
+<li><p>виконувати асинхронні GET/POST-запити через <code class="docutils literal notranslate"><span class="pre">fetch</span></code>;</p></li>
+<li><p>винести логіку обміну даними до окремого модуля <code class="docutils literal notranslate"><span class="pre">trafficLightsApi</span></code>;</p></li>
+<li><p>представляти <code class="docutils literal notranslate"><span class="pre">loading</span></code>, <code class="docutils literal notranslate"><span class="pre">success</span></code> і <code class="docutils literal notranslate"><span class="pre">error</span></code> як точні значення стану запиту та пояснювати їх українською;</p></li>
+<li><p>показувати кнопку «Повторити» після невдалого початкового запиту;</p></li>
+<li><p>зберігати поточний сигнал тільки після явної дії користувача;</p></li>
+<li><p>підтверджувати успішне збереження відповіддю сервера або повторним GET-запитом;</p></li>
+<li><p>перевірити збереження даних через перезавантаження браузера і новий GET-запит.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2><span class="section-number">5.3. </span>Передумови та початковий стан проєкту<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Початкова точка цієї роботи — <strong>CP4</strong> після ЛР4:</p>
+<ul class="simple">
+<li><p>застосунок є SPA з кількома маршрутами;</p></li>
+<li><p>доступні маршрути <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code>, <code class="docutils literal notranslate"><span class="pre">/stats</span></code> і маршрут для невідомої адреси;</p></li>
+<li><p>стан світлофора в пам’яті має спільного власника у <code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code> і <code class="docutils literal notranslate"><span class="pre">StatsPage</span></code> читають узгоджений спільний стан;</p></li>
+<li><p>поточна фаза / сигнал, лічильники, орієнтація та автоматичний/ручний режим
+зберігаються під час навігації маршрутами;</p></li>
+<li><p>ефект таймера й очищення з ЛР3 уже належать межі провайдера контексту;</p></li>
+<li><p>перезавантаження браузера все ще може повернути стан застосунку до початкового.</p></li>
+</ul>
+<p>Новий React-проєкт <strong>не створюйте</strong>. Продовжуйте той самий наскрізний проєкт
+«Світлофор».</p>
+<div class="admonition important">
+<p class="admonition-title">Важливо</p>
+<p>Головна тема ЛР5 — <strong>зв’язок стану застосунку в пам’яті з даними, збереженими на сервері, через
+чітку межу API</strong>.</p>
+<p>Автоматичний таймер із ЛР3 не повинен записувати стан у GAS на кожному тіку.
+Серверний запис виконується тільки після явної дії користувача <strong>«Зберегти поточний
+сигнал»</strong>.</p>
+</div>
+</section>
+<section id="id4">
+<h2><span class="section-number">5.4. </span>Теоретичний мінімум<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="id5">
+<h3><span class="section-number">5.4.1. </span>Стан застосунку в пам’яті й дані, збережені на сервері, — не одне й те саме<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>До CP4 усі зміни існують у пам’яті браузера:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>стан React
+    ↓
+відтворення інтерфейсу
+    ↓
+навігація маршрутами зберігає провайдер контексту
+</pre></div>
+</div>
+<p>Але повне перезавантаження створює стан застосунку в пам’яті заново. Якщо після перезавантаження нам
+потрібно відновити значення, воно має існувати поза поточним процесом JavaScript.</p>
+<p>У ЛР5 з’являється друга область даних:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>стан у пам'яті браузера            серверне сховище
+-----------------------            ----------------
+TrafficLightsProvider   ← API →    Google Sheet
+поточна фаза                       id
+лічильники                         current_signal
+орієнтація
+режим
+</pre></div>
+</div>
+<p>Сервер не повинен зберігати всі значення лише тому, що вони є в Context.
+У базовій моделі CP5 сервер зберігає тільки:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"currentSignal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"red"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Лічильники, орієнтація та автоматичний/ручний режим залишаються даними стану в пам’яті.</p>
+</section>
+<section id="google-sheet-api">
+<h3><span class="section-number">5.4.2. </span>Чому Google Sheet є сховищем, а не API<a class="headerlink" href="#google-sheet-api" title="Link to this heading">#</a></h3>
+<p>React-клієнт <strong>не</strong> читає Google Sheet напряму. Таблиця є серверним сховищем, а GAS
+Web App є межею серверної взаємодії:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>React SPA
+   ↓ fetch
+GAS Web App
+   ↓ SpreadsheetApp
+Google Sheet
+</pre></div>
+</div>
+<p>Так інтерфейс знає лише контракт API, а серверна частина приховує спосіб доступу до таблиці.</p>
+</section>
+<section id="id6">
+<h3><span class="section-number">5.4.3. </span>Мінімальна колекція<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Створіть окрему електронну таблицю і лист:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TRAFFIC_LIGHTS
+</pre></div>
+</div>
+<p>Мінімальна схема:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>current_signal</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">main</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">red</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">id</span></code> є стабільним ідентифікатором. <code class="docutils literal notranslate"><span class="pre">current_signal</span></code> може бути тільки одним із:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>red | yellow | green
+</pre></div>
+</div>
+<p>У базовій ЛР5 одного запису <code class="docutils literal notranslate"><span class="pre">main</span></code> достатньо. Контракт API допускає колекцію,
+але ми не додаємо інтерфейс вибору або CRUD лише заради демонстрації серверної частини.</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">5.4.4. </span>Конфігурація не повинна бути базою даних<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Spreadsheet ID потрібний GAS, щоб відкрити сховище. Не записуйте його прямо в
+<code class="docutils literal notranslate"><span class="pre">Code.gs</span></code>. Збережіть ID у Script Property:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>DB_SPREADSHEET_ID
+</pre></div>
+</div>
+<p>Отже:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Script Property     → конфігурація
+рядки Google Sheet  → збережені предметні дані
+</pre></div>
+</div>
+<p>Це різні відповідальності.</p>
+</section>
+<section id="api">
+<h3><span class="section-number">5.4.5. </span>Контракт API перед кодом<a class="headerlink" href="#api" title="Link to this heading">#</a></h3>
+<p>У базовому CP5 є рівно дві можливості.</p>
+<p>Читання:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GET &lt;WEB_APP_EXEC_URL&gt;?action=list
+</pre></div>
+</div>
+<p>Успішна відповідь:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"trafficLights"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"currentSignal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"red"</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Оновлення:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>POST &lt;WEB_APP_EXEC_URL&gt;
+Content-Type: text/plain;charset=utf-8
+</pre></div>
+</div>
+<p>Тіло запиту є JSON-текстом:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"updateState"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"currentSignal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"green"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Успішна відповідь:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"trafficLight"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"currentSignal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"green"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h3><span class="section-number">5.4.6. </span>Чому відповідь має обгортку<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Успіх і помилка мають однакову зовнішню форму:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+  ok,
+  data,
+  error
+}
+</pre></div>
+</div>
+<p>Відповідь із помилкою, наприклад:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid_signal"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unsupported traffic-light signal"</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Клієнт не повинен вважати, що HTTP <code class="docutils literal notranslate"><span class="pre">200</span></code> автоматично означає успіх операції предметної області. Він перевіряє <code class="docutils literal notranslate"><span class="pre">payload.ok</span></code>.</p>
+</section>
+<section id="post-text-plain">
+<h3><span class="section-number">5.4.7. </span>Чому POST використовує <code class="docutils literal notranslate"><span class="pre">text/plain</span></code><a class="headerlink" href="#post-text-plain" title="Link to this heading">#</a></h3>
+<p>Для базового профілю надсилайте JSON-текст із заголовком:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Content-Type: text/plain;charset=utf-8
+</pre></div>
+</div>
+<p>і не додавайте власних заголовків.</p>
+<p>Цей профіль обміну вже придатний для запиту з браузера через перенаправлення Apps Script
+ContentService. <code class="docutils literal notranslate"><span class="pre">fetch</span></code> має дозволити перенаправлення за замовчуванням.</p>
+<p>Не замінюйте <code class="docutils literal notranslate"><span class="pre">text/plain</span></code> на <code class="docutils literal notranslate"><span class="pre">application/json</span></code> тільки тому, що тіло містить
+JSON: у цій лабораторній важливий не «красивий REST», а обмежений контракт обміну,
+перевірений для шляху браузер → GAS Web App.</p>
+</section>
+<section id="exec-dev-url">
+<h3><span class="section-number">5.4.8. </span><code class="docutils literal notranslate"><span class="pre">/exec</span></code> і <code class="docutils literal notranslate"><span class="pre">/dev</span></code> — різні URL розгортання<a class="headerlink" href="#exec-dev-url" title="Link to this heading">#</a></h3>
+<p>Для результату лабораторної використовуйте <strong>версійне розгортання Web App</strong> і
+URL, що закінчується на:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/exec
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">/dev</span></code> може бути корисним для тестування розробником, але не є основною URL-адресою
+розгортання для лабораторного результату.</p>
+<p>Доступ має дозволяти браузерному клієнту звертатися до Web App без окремого потоку Google
+OAuth. Точний текст параметра доступу може відрізнятися залежно від типу облікового запису Google
+або політики організації.</p>
+<div class="admonition warning">
+<p class="admonition-title">Попередження</p>
+<p>Ця серверна частина містить лише несекретні навчальні дані й <strong>не</strong> є моделлю захисту для виробничого середовища.
+Автентифікація та захищена межа застосунку з’являться у ЛР7, але
+вони не перетворюють цей GAS Web App автоматично на API з виробничою авторизацією.</p>
+</div>
+</section>
+<section id="id9">
+<h3><span class="section-number">5.4.9. </span>Межа доступу до даних<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>Компоненти представлення не повинні знати:</p>
+<ul class="simple">
+<li><p>GAS URL;</p></li>
+<li><p>параметри <code class="docutils literal notranslate"><span class="pre">fetch</span></code>;</p></li>
+<li><p>параметр запиту <code class="docutils literal notranslate"><span class="pre">action=list</span></code>;</p></li>
+<li><p>форму тіла POST-запиту;</p></li>
+<li><p>логіку розбору JSON-обгортки;</p></li>
+<li><p>деталі перенаправлення ContentService.</p></li>
+</ul>
+<p>Це відповідальність окремого модуля:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>src/
+└── api/
+    └── trafficLightsApi.js
+</pre></div>
+</div>
+<p>Його відкритий інтерфейс:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>listTrafficLights()
+updateTrafficLightState(id, currentSignal)
+</pre></div>
+</div>
+<p>Сторінка/провайдер контексту працює зі значеннями предметної області, а не з деталями обміну даними.</p>
+</section>
+<section id="id10">
+<h3><span class="section-number">5.4.10. </span>Стан запиту — це окремий стан застосунку<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>Асинхронна операція не має лише двох станів «дані є / даних немає».</p>
+<p>Мінімально потрібні:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>idle | loading | success | error
+</pre></div>
+</div>
+<p>Наприклад:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>початковий GET-запит
+   ↓
+loading
+   ├── success → дані доступні
+   └── error   → видиме повідомлення + «Повторити»
+</pre></div>
+</div>
+<p>Для збереження аналогічно:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>натискання «Зберегти поточний сигнал»
+   ↓
+loading
+   ├── success → сервер підтвердив збережений запис
+   └── error   → не вдавати, що збереження відбулося
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3><span class="section-number">5.4.11. </span>Поточний сигнал у пам’яті й збережений на сервері сигнал можуть тимчасово відрізнятися<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>Це важлива частина роботи.</p>
+<p>Наприклад:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>збережений сигнал на сервері = red
+сигнал у пам'яті             = green
+</pre></div>
+</div>
+<p>Такий стан є нормальним <strong>до</strong> натискання «Зберегти поточний сигнал».</p>
+<p>Після успішного збереження:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>збережений сигнал на сервері = green
+сигнал у пам'яті             = green
+</pre></div>
+</div>
+<p>Отже кнопка «Зберегти поточний сигнал» має зміст саме тому, що стан у пам’яті й дані на сервері не
+синхронізуються автоматично на кожну зміну.</p>
+</section>
+<section id="yellow">
+<h3><span class="section-number">5.4.12. </span>Особливість <code class="docutils literal notranslate"><span class="pre">yellow</span></code> у моделі фаз<a class="headerlink" href="#yellow" title="Link to this heading">#</a></h3>
+<p>У ЛР3 автоматичний цикл мав дві фази <code class="docutils literal notranslate"><span class="pre">yellow</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>red → yellow → green → yellow → red
+</pre></div>
+</div>
+<p>А серверна модель CP5 зберігає лише видимий сигнал:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>red | yellow | green
+</pre></div>
+</div>
+<p>Тому збережений на сервері <code class="docutils literal notranslate"><span class="pre">yellow</span></code> <strong>не зберігає напрям циклу</strong>. Якщо єдиним джерелом актуального стану в пам’яті
+є індекс фази, під час початкового завантаження виберіть одну узгоджену фазу <code class="docutils literal notranslate"><span class="pre">yellow</span></code>,
+наприклад першу.</p>
+<p>Схематично:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>серверний red    → фаза red у пам'яті
+серверний yellow → узгоджена фаза yellow у пам'яті
+серверний green  → фаза green у пам'яті
+</pre></div>
+</div>
+<p>Не розширюйте серверну модель полем <code class="docutils literal notranslate"><span class="pre">phase</span></code> лише для усунення цієї неоднозначності: у
+CP5 ми зберігаємо видимий поточний сигнал, а не всю модель станів таймера.</p>
+</section>
+</section>
+<section id="id12">
+<h2><span class="section-number">5.5. </span>Постановка задачі<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>Розширте CP4 так, щоб запис <code class="docutils literal notranslate"><span class="pre">main</span></code> із поточним сигналом можна було прочитати з
+Google Sheet через GAS Web App і явно зберегти назад на сервер.</p>
+<p>Після виконання роботи застосунок повинен:</p>
+<ol class="arabic simple">
+<li><p>під час початкового завантаження виконати GET-запит колекції з GAS;</p></li>
+<li><p>показати стан завантаження, доки запит не завершився;</p></li>
+<li><p>після успішного виконання знайти запис <code class="docutils literal notranslate"><span class="pre">main</span></code> і відобразити збережений сигнал;</p></li>
+<li><p>синхронізувати сигнал у пам’яті із завантаженим сигналом із сервера;</p></li>
+<li><p>у разі помилки показати повідомлення та кнопку «Повторити»;</p></li>
+<li><p>зберегти поведінку CP1–CP4 у пам’яті такою, як раніше;</p></li>
+<li><p>не виконувати серверний запис на кожному кроці автоматичного таймера;</p></li>
+<li><p>мати явний елемент керування <strong>«Зберегти поточний сигнал»</strong>;</p></li>
+<li><p>під час збереження показувати стан очікування/виконання запиту і блокувати повторне збереження;</p></li>
+<li><p>після успішного виконання прийняти оновлений запис, повернутий сервером;</p></li>
+<li><p>після помилки показати, що серверне збереження не підтверджено;</p></li>
+<li><p>після перезавантаження браузера прочитати з GAS те саме раніше збережене значення.</p></li>
+</ol>
+</section>
+<section id="id13">
+<h2><span class="section-number">5.6. </span>Виконання<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<section id="id14">
+<h3><span class="section-number">5.6.1. </span>Крок 1. Створіть серверне сховище<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>Створіть Google Spreadsheet для навчальної серверної частини.</p>
+<p>Перейменуйте перший аркуш на:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TRAFFIC_LIGHTS
+</pre></div>
+</div>
+<p>Додайте:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">current_signal</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">main</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">red</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Не додавайте десятки тестових стовпців. У базовому контракті використовуються тільки
+<code class="docutils literal notranslate"><span class="pre">id</span></code> та <code class="docutils literal notranslate"><span class="pre">current_signal</span></code>.</p>
+<p>Скопіюйте Spreadsheet ID із URL. У URL виду:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>https://docs.google.com/spreadsheets/d/&lt;SPREADSHEET_ID&gt;/edit
+</pre></div>
+</div>
+<p>потрібна саме частина <code class="docutils literal notranslate"><span class="pre">&lt;SPREADSHEET_ID&gt;</span></code>.</p>
+<p><strong>Перевірка 1:</strong> аркуш називається <code class="docutils literal notranslate"><span class="pre">TRAFFIC_LIGHTS</span></code>, а рядок <code class="docutils literal notranslate"><span class="pre">main</span> <span class="pre">|</span> <span class="pre">red</span></code>
+однозначно читається як один серверний запис.</p>
+</section>
+<section id="gas">
+<h3><span class="section-number">5.6.2. </span>Крок 2. Створіть вихідний код GAS у репозиторії<a class="headerlink" href="#gas" title="Link to this heading">#</a></h3>
+<p>У наскрізному студентському репозиторії створіть:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>gas/
+└── Code.gs
+</pre></div>
+</div>
+<p>Цей файл є копією вихідного коду серверної частини в репозиторії. Той самий код вставте у проєкт Apps
+Script, прив’язаний до вашого навчального розгортання.</p>
+<p>Не кладіть вихідний код серверної частини випадково в React <code class="docutils literal notranslate"><span class="pre">src/components</span></code> і не називайте його
+компонентом представлення.</p>
+<p><strong>Перевірка 2:</strong> у репозиторії є явний <code class="docutils literal notranslate"><span class="pre">gas/Code.gs</span></code>, а вихідний код React і GAS
+мають різні межі відповідальності.</p>
+</section>
+<section id="script-property">
+<h3><span class="section-number">5.6.3. </span>Крок 3. Додайте Script Property<a class="headerlink" href="#script-property" title="Link to this heading">#</a></h3>
+<p>У проєкті Apps Script відкрийте налаштування проєкту і створіть Script Property:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>DB_SPREADSHEET_ID=&lt;ваш Spreadsheet ID&gt;
+</pre></div>
+</div>
+<p>У <code class="docutils literal notranslate"><span class="pre">Code.gs</span></code> отримуйте конфігурацію через <code class="docutils literal notranslate"><span class="pre">PropertiesService</span></code>:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">spreadsheetId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">PropertiesService</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">getScriptProperties</span><span class="p">()</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">getProperty</span><span class="p">(</span><span class="s2">"DB_SPREADSHEET_ID"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Потім відкривайте сховище:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">sheet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">SpreadsheetApp</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">openById</span><span class="p">(</span><span class="nx">spreadsheetId</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">getSheetByName</span><span class="p">(</span><span class="s2">"TRAFFIC_LIGHTS"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Якщо властивість або аркуш відсутні, серверна частина має завершити операцію контрольованою
+помилкою, а не мовчки працювати з випадковою таблицею.</p>
+<p><strong>Перевірка 3:</strong> <code class="docutils literal notranslate"><span class="pre">DB_SPREADSHEET_ID</span></code> не записується жорстко у <code class="docutils literal notranslate"><span class="pre">Code.gs</span></code>, а GAS може
+відкрити потрібний аркуш <code class="docutils literal notranslate"><span class="pre">TRAFFIC_LIGHTS</span></code>.</p>
+</section>
+<section id="json">
+<h3><span class="section-number">5.6.4. </span>Крок 4. Реалізуйте допоміжні функції JSON-відповідей<a class="headerlink" href="#json" title="Link to this heading">#</a></h3>
+<p>Створіть одну допоміжну функцію, яка повертає JSON через ContentService:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">json_</span><span class="p">(</span><span class="nx">payload</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">ContentService</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">createTextOutput</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">payload</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">setMimeType</span><span class="p">(</span><span class="nx">ContentService</span><span class="p">.</span><span class="nx">MimeType</span><span class="p">.</span><span class="nb">JSON</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Для успішної відповіді зручно мати:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">jsonOk_</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">json_</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">ok</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">data</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Для відповіді з помилкою:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">jsonError_</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">json_</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">ok</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">code</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Точний набір внутрішніх назв допоміжних функцій може відрізнятися. Важливий відкритий контракт:
+<code class="docutils literal notranslate"><span class="pre">{ok,data,error}</span></code>.</p>
+<p><strong>Перевірка 4:</strong> успішна відповідь і відповідь із помилкою мають однакову форму обгортки.</p>
+</section>
+<section id="get">
+<h3><span class="section-number">5.6.5. </span>Крок 5. Реалізуйте GET-запит колекції<a class="headerlink" href="#get" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">doGet(e)</span></code> повинен підтримувати команду:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>action=list
+</pre></div>
+</div>
+<p>Алгоритм:</p>
+<ol class="arabic simple">
+<li><p>перевірити <code class="docutils literal notranslate"><span class="pre">e.parameter.action</span></code>;</p></li>
+<li><p>відкрити <code class="docutils literal notranslate"><span class="pre">TRAFFIC_LIGHTS</span></code>;</p></li>
+<li><p>прочитати рядки;</p></li>
+<li><p>пропустити заголовок;</p></li>
+<li><p>перетворити кожний рядок на об’єкт <code class="docutils literal notranslate"><span class="pre">{id,currentSignal}</span></code>;</p></li>
+<li><p>повернути колекцію через <code class="docutils literal notranslate"><span class="pre">jsonOk_</span></code>;</p></li>
+<li><p>у випадку помилки повернути <code class="docutils literal notranslate"><span class="pre">jsonError_</span></code>.</p></li>
+</ol>
+<p>Базова форма:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">doGet</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="o">?</span><span class="p">.</span><span class="nx">parameter</span><span class="o">?</span><span class="p">.</span><span class="nx">action</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">action</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s2">"list"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">jsonError_</span><span class="p">(</span><span class="s2">"unknown_action"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Unsupported action"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">jsonOk_</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">trafficLights</span><span class="o">:</span><span class="w"> </span><span class="nx">listTrafficLights_</span><span class="p">(),</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">jsonError_</span><span class="p">(</span><span class="s2">"storage_error"</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Не додавайте кінцеві точки створення/видалення.</p>
+<p><strong>Перевірка 5:</strong> GET-запит колекції повертає <code class="docutils literal notranslate"><span class="pre">main</span></code> із полем <code class="docutils literal notranslate"><span class="pre">currentSignal</span></code> у camelCase
+для клієнта, навіть якщо стовпець у Sheet називається <code class="docutils literal notranslate"><span class="pre">current_signal</span></code>.</p>
+</section>
+<section id="id15">
+<h3><span class="section-number">5.6.6. </span>Крок 6. Реалізуйте оновлення одного запису<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">doPost(e)</span></code> отримує JSON-текст у <code class="docutils literal notranslate"><span class="pre">e.postData.contents</span></code>.</p>
+<p>Потрібно перевірити:</p>
+<ul class="simple">
+<li><p>тіло запиту можна розібрати;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">action</span> <span class="pre">===</span> <span class="pre">&quot;updateState&quot;</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code> переданий;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">currentSignal</span></code> належить <code class="docutils literal notranslate"><span class="pre">red</span> <span class="pre">|</span> <span class="pre">yellow</span> <span class="pre">|</span> <span class="pre">green</span></code>;</p></li>
+<li><p>запис із таким <code class="docutils literal notranslate"><span class="pre">id</span></code> існує.</p></li>
+</ul>
+<p>Після перевірки знайдіть потрібний рядок, оновіть лише <code class="docutils literal notranslate"><span class="pre">current_signal</span></code> і
+поверніть <strong>оновлений запис після збереження</strong>.</p>
+<p>Каркас:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">doPost</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">e</span><span class="o">?</span><span class="p">.</span><span class="nx">postData</span><span class="o">?</span><span class="p">.</span><span class="nx">contents</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s2">"{}"</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">command</span><span class="p">.</span><span class="nx">action</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s2">"updateState"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">jsonError_</span><span class="p">(</span><span class="s2">"unknown_action"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Unsupported action"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// перевірити id і currentSignal</span>
+<span class="w">    </span><span class="c1">// оновити відповідний рядок</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">jsonOk_</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">trafficLight</span><span class="o">:</span><span class="w"> </span><span class="nx">updatedRecord</span><span class="p">,</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">jsonError_</span><span class="p">(</span><span class="s2">"bad_request"</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Не повертайте успіх до фактичного оновлення сховища.</p>
+<p><strong>Перевірка 6:</strong> коректне оновлення змінює тільки потрібний рядок, а некоректний сигнал не
+записується як довільний текст.</p>
+</section>
+<section id="web-app">
+<h3><span class="section-number">5.6.7. </span>Крок 7. Створіть версійне розгортання Web App<a class="headerlink" href="#web-app" title="Link to this heading">#</a></h3>
+<p>У Apps Script створіть розгортання типу <strong>Web app</strong>.</p>
+<p>Для базової лабораторної:</p>
+<ul class="simple">
+<li><p>виконання — від імені власника/розробника;</p></li>
+<li><p>доступ — браузерний клієнт має звертатися без окремого потоку OAuth;</p></li>
+<li><p>використовуйте версійну URL-адресу <code class="docutils literal notranslate"><span class="pre">/exec</span></code>.</p></li>
+</ul>
+<p>Збережіть URL-адресу <code class="docutils literal notranslate"><span class="pre">/exec</span></code>. Це <strong>адреса розгортання</strong>, а не пароль чи секрет API.</p>
+<p>Якщо політика вашого облікового запису Google не дозволяє потрібний режим доступу, зафіксуйте
+це як обмеження середовища і зверніться до викладача. Не додавайте самостійно
+OAuth/proxy лише для обходу політики.</p>
+<p><strong>Перевірка 7:</strong> у браузері доступне версійне розгортання <code class="docutils literal notranslate"><span class="pre">/exec</span></code>, а не лише
+URL <code class="docutils literal notranslate"><span class="pre">/dev</span></code>, доступний з редактора.</p>
+</section>
+<section id="gas-react">
+<h3><span class="section-number">5.6.8. </span>Крок 8. Перевірте контракт GAS окремо від React-інтерфейсу<a class="headerlink" href="#gas-react" title="Link to this heading">#</a></h3>
+<p>До інтеграції з провайдером контексту переконайтеся, що контракт серверної частини працює самостійно.</p>
+<p>GET:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;WEB_APP_EXEC_URL&gt;?action=list
+</pre></div>
+</div>
+<p>має повернути обгортку з колекцією.</p>
+<p>Для POST використайте браузерну/клієнтську перевірку або тимчасовий пробний запит, який надсилає:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="nx">WEB_APP_EXEC_URL</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">"POST"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"Content-Type"</span><span class="o">:</span><span class="w"> </span><span class="s2">"text/plain;charset=utf-8"</span><span class="p">,</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">action</span><span class="o">:</span><span class="w"> </span><span class="s2">"updateState"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">currentSignal</span><span class="o">:</span><span class="w"> </span><span class="s2">"green"</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}),</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>Після POST перевірте також сам Google Sheet.</p>
+<p><strong>Перевірка 8:</strong> читання/запис серверної частини працює незалежно від того, чи правильно
+відображений React-інтерфейс.</p>
+</section>
+<section id="trafficlightsapi-js">
+<h3><span class="section-number">5.6.9. </span>Крок 9. Створіть <code class="docutils literal notranslate"><span class="pre">trafficLightsApi.js</span></code><a class="headerlink" href="#trafficlightsapi-js" title="Link to this heading">#</a></h3>
+<p>У вихідному коді React створіть:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>src/
+└── api/
+    └── trafficLightsApi.js
+</pre></div>
+</div>
+<p>У базовій ЛР5 тільки цей модуль знає URL Web App і деталі виклику <code class="docutils literal notranslate"><span class="pre">fetch</span></code>.</p>
+<p>На початку можна зберегти URL розгортання у константі модуля:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">API_URL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"&lt;ваш versioned /exec URL&gt;"</span>
+</pre></div>
+</div>
+<p>Цей URL не є секретом. Не записуйте сюди Spreadsheet ID і не намагайтеся з
+браузера напряму відкривати Sheet.</p>
+<p>Створіть допоміжну функцію для розбору обгортки:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">parseEnvelope</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">payload</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">error</span><span class="o">?</span><span class="p">.</span><span class="nx">message</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s2">"GAS request failed"</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">payload</span><span class="p">.</span><span class="nx">data</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Відкрита функція читання:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">listTrafficLights</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">API_URL</span><span class="si">}</span><span class="sb">?action=list`</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parseEnvelope</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">trafficLights</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Відкрита функція оновлення:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">updateTrafficLightState</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">currentSignal</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">API_URL</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">"POST"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">"Content-Type"</span><span class="o">:</span><span class="w"> </span><span class="s2">"text/plain;charset=utf-8"</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">action</span><span class="o">:</span><span class="w"> </span><span class="s2">"updateState"</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">id</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">currentSignal</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}),</span>
+<span class="w">  </span><span class="p">})</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parseEnvelope</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">trafficLight</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Не викликайте <code class="docutils literal notranslate"><span class="pre">fetch</span></code> напряму повторно в <code class="docutils literal notranslate"><span class="pre">TrafficLightPage</span></code>, <code class="docutils literal notranslate"><span class="pre">StatsPage</span></code>, <code class="docutils literal notranslate"><span class="pre">Light</span></code> або
+<code class="docutils literal notranslate"><span class="pre">StatsBar</span></code>.</p>
+<p><strong>Перевірка 9:</strong> пошук <code class="docutils literal notranslate"><span class="pre">fetch(</span></code> у вихідному коді застосунку показує виклик обміну даними у
+<code class="docutils literal notranslate"><span class="pre">trafficLightsApi.js</span></code>, а не розсипані виклики по компонентах представлення.</p>
+</section>
+<section id="id16">
+<h3><span class="section-number">5.6.10. </span>Крок 10. Додайте стан серверного запиту до межі провайдера контексту<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">TrafficLightsProvider</span></code> уже є спільним власником стану застосунку в CP4. Розширте його лише
+настільки, наскільки потрібно CP5.</p>
+<p>Наприклад, потрібні значення:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>serverTrafficLights
+loadStatus
+loadError
+saveStatus
+saveError
+</pre></div>
+</div>
+<p>Можна використовувати інші назви або об’єднати статуси, якщо поведінка лишається
+однозначною. Не створюйте універсальне глобальне сховище.</p>
+<p>Додайте дії предметної області/застосунку:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reloadTrafficLights()
+saveCurrentSignal()
+</pre></div>
+</div>
+<p>Сторінка представлення має викликати дію, а не формувати POST-запит сама.</p>
+<p><strong>Перевірка 10:</strong> провайдер контексту керує асинхронним станом застосунку, а деталі обміну даними
+залишаються всередині <code class="docutils literal notranslate"><span class="pre">trafficLightsApi.js</span></code>.</p>
+</section>
+<section id="id17">
+<h3><span class="section-number">5.6.11. </span>Крок 11. Реалізуйте початкове завантаження через ефект<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>Під час монтування провайдера контексту виконайте початковий GET-запит.</p>
+<p>Схематично:</p>
+<div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">reloadTrafficLights</span><span class="p">()</span>
+<span class="p">},</span><span class="w"> </span><span class="p">[])</span>
+</pre></div>
+</div>
+<p>Сам <code class="docutils literal notranslate"><span class="pre">reloadTrafficLights</span></code> повинен:</p>
+<ol class="arabic simple">
+<li><p>перейти в <code class="docutils literal notranslate"><span class="pre">loading</span></code>;</p></li>
+<li><p>очистити попередню помилку завантаження;</p></li>
+<li><p>викликати <code class="docutils literal notranslate"><span class="pre">listTrafficLights()</span></code>;</p></li>
+<li><p>знайти запис <code class="docutils literal notranslate"><span class="pre">main</span></code>;</p></li>
+<li><p>зберегти серверну колекцію;</p></li>
+<li><p>синхронізувати сигнал у пам’яті зі збереженим <code class="docutils literal notranslate"><span class="pre">currentSignal</span></code>;</p></li>
+<li><p>перейти в <code class="docutils literal notranslate"><span class="pre">success</span></code>;</p></li>
+<li><p>у разі винятку перейти в <code class="docutils literal notranslate"><span class="pre">error</span></code>.</p></li>
+</ol>
+<p>Пам’ятайте про неоднозначність фази <code class="docutils literal notranslate"><span class="pre">yellow</span></code>: якщо єдине джерело актуального стану CP3 — індекс фази,
+створіть невелике детерміноване відображення із серверного сигналу в узгоджену фазу.</p>
+<div class="admonition note">
+<p class="admonition-title">Примітка</p>
+<p>Початкове завантаження із сервера не повинно запускати окремий серверний запис. Спочатку ми
+<strong>читаємо</strong> збережений серверний стан і відновлюємо його представлення в пам’яті.</p>
+</div>
+<p>У режимі розробки React <code class="docutils literal notranslate"><span class="pre">StrictMode</span></code> може виконати додатковий цикл налаштування/очищення
+і ви можете побачити повторний початковий <strong>GET</strong>. Це корисна перевірка того, що
+операція читання не має небезпечних побічних ефектів. Не вимикайте <code class="docutils literal notranslate"><span class="pre">StrictMode</span></code> лише
+щоб приховати повторний GET. Натомість POST-збереження повинно залишатися прив’язаним
+до явної дії користувача і не запускатися з цього ефекту.</p>
+<p><strong>Перевірка 11:</strong> після перезавантаження застосунок показує поточний сигнал, прочитаний із
+GAS, а не завжди жорстко заданий початковий <code class="docutils literal notranslate"><span class="pre">red</span></code>; у режимі розробки повторний GET не
+спричиняє дубльованих серверних записів.</p>
+</section>
+<section id="id18">
+<h3><span class="section-number">5.6.12. </span>Крок 12. Покажіть стани завантаження, помилки та кнопку «Повторити»<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>На сторінці або інтеграційному компоненті покажіть явні стани.</p>
+<p>Під час початкового завантаження:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Завантаження даних світлофора…
+</pre></div>
+</div>
+<p>У разі помилки:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Не вдалося завантажити збережений серверний стан.
+[Повторити]
+</pre></div>
+</div>
+<p>Кнопка «Повторити» повинна викликати <code class="docutils literal notranslate"><span class="pre">reloadTrafficLights()</span></code>.</p>
+<p>Не приховуйте помилку лише в консолі браузера.</p>
+<p>Для перевірки стану помилки тимчасово:</p>
+<ul class="simple">
+<li><p>зіпсуйте API URL;</p></li>
+<li><p>або використайте інший контрольований спосіб спричинити помилку запиту;</p></li>
+<li><p>переконайтеся, що інтерфейс показує помилку;</p></li>
+<li><p>поверніть правильний URL;</p></li>
+<li><p>натисніть «Повторити».</p></li>
+</ul>
+<p><strong>Перевірка 12:</strong> студент може продемонструвати не лише успішний сценарій, а й послідовність
+помилка → «Повторити» → успішне виконання.</p>
+</section>
+<section id="id19">
+<h3><span class="section-number">5.6.13. </span>Крок 13. Додайте явне «Зберегти поточний сигнал»<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>На <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code> додайте кнопку або еквівалентний елемент керування:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Зберегти поточний сигнал
+</pre></div>
+</div>
+<p>Дія повинна взяти <strong>поточний сигнал у пам’яті</strong> і викликати:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>updateTrafficLightState("main", currentSignal)
+</pre></div>
+</div>
+<p>Поки POST виконується:</p>
+<ul class="simple">
+<li><p>показуйте стан очікування/виконання запиту;</p></li>
+<li><p>зробіть кнопку збереження недоступною, щоб повторні натискання не створювали зайвих запитів.</p></li>
+</ul>
+<p>Після успішного виконання:</p>
+<ul class="simple">
+<li><p>прийміть оновлений запис із відповіді сервера;</p></li>
+<li><p>оновіть копію даних, підтверджену сервером;</p></li>
+<li><p>покажіть коротке підтвердження успіху або підтверджене сервером збережене значення.</p></li>
+</ul>
+<p>Після помилки:</p>
+<ul class="simple">
+<li><p>покажіть помилку;</p></li>
+<li><p>не змінюйте інтерфейс так, ніби серверне збереження гарантовано відбулося.</p></li>
+</ul>
+<p><strong>Перевірка 13:</strong> кнопка збереження має зрозумілу поведінку під час очікування, успішного виконання та помилки і не є просто
+локальним <code class="docutils literal notranslate"><span class="pre">setState</span></code>.</p>
+</section>
+<section id="id20">
+<h3><span class="section-number">5.6.14. </span>Крок 14. Не синхронізуйте таймер із сервером автоматично<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>Увімкніть автоматичний режим і поспостерігайте за кількома кроками таймера.</p>
+<p>Під час кроків таймера:</p>
+<ul class="simple">
+<li><p>сигнал у пам’яті змінюється;</p></li>
+<li><p>збережений на сервері сигнал <strong>не зобов’язаний</strong> змінюватися;</p></li>
+<li><p>вкладка мережевих запитів не повинна показувати POST на кожний крок таймера.</p></li>
+</ul>
+<p>Тільки явне збереження створює оновлення даних на сервері.</p>
+<p>Це означає, що можна мати:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>сигнал у пам'яті = yellow
+сигнал на сервері = green
+</pre></div>
+</div>
+<p>і це очікувано до наступного збереження.</p>
+<p><strong>Перевірка 14:</strong> автоматичний цикл не створює циклу серверних записів.</p>
+</section>
+<section id="id21">
+<h3><span class="section-number">5.6.15. </span>Крок 15. Перевірте наскрізне збереження даних на сервері<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p>Виконайте сценарій:</p>
+<ol class="arabic simple">
+<li><p>відкрийте <code class="docutils literal notranslate"><span class="pre">/traffic-light</span></code>;</p></li>
+<li><p>дочекайтеся успішного початкового GET-запиту;</p></li>
+<li><p>встановіть сигнал у пам’яті, відмінний від серверного значення;</p></li>
+<li><p>переконайтеся, що до збереження змінено лише стан у пам’яті;</p></li>
+<li><p>натисніть <strong>«Зберегти поточний сигнал»</strong>;</p></li>
+<li><p>дочекайтеся підтвердження сервера;</p></li>
+<li><p>перевірте відповідний рядок у Google Sheet;</p></li>
+<li><p>перезавантажте браузер;</p></li>
+<li><p>дочекайтеся нового GET-запиту;</p></li>
+<li><p>переконайтеся, що застосунок відновив раніше збережений сигнал.</p></li>
+</ol>
+<p>Саме кроки 7–10 доводять збереження даних на сервері. Навігація маршрутами без перезавантаження цього
+не доводить — воно вже було частиною CP4.</p>
+<p><strong>Перевірка 15:</strong> збережене значення переживає повне перезавантаження браузера і повертається
+через новий GET-запит.</p>
+</section>
+</section>
+<section id="id22">
+<h2><span class="section-number">5.7. </span>Контрольні точки виконання<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>Перед завершенням роботи продемонструйте п’ять ключових перевірок:</p>
+<ol class="arabic simple">
+<li><p>GET і POST через версійний <code class="docutils literal notranslate"><span class="pre">/exec</span></code> використовують обгортку <code class="docutils literal notranslate"><span class="pre">{ok,data,error}</span></code>, а некоректний сигнал не записується у Sheet;</p></li>
+<li><p>початковий GET-запит показує завантаження, помилку й кнопку «Повторити», а після успіху відновлює запис <code class="docutils literal notranslate"><span class="pre">main</span></code> у стані застосунку;</p></li>
+<li><p>«Зберегти поточний сигнал» виконує явний POST з <code class="docutils literal notranslate"><span class="pre">text/plain;charset=utf-8</span></code>, тимчасово блокує повторне збереження і приймає оновлений запис із сервера;</p></li>
+<li><p>автоматичний таймер не створює POST-запитів, а зміна в Google Sheet переживає перезавантаження й повертається новим GET-запитом;</p></li>
+<li><p>маршрутизація CP4, спільний стан, <code class="docutils literal notranslate"><span class="pre">trafficLightsApi.js</span></code> як єдине місце прямого обміну даними та очищення таймера продовжують працювати.</p></li>
+</ol>
+</section>
+<section id="id23">
+<h2><span class="section-number">5.8. </span>Самоперевірка<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<p>Дайте відповіді на запитання і будьте готові пояснити їх під час захисту:</p>
+<ol class="arabic simple">
+<li><p>Чим стан застосунку в пам’яті відрізняється від даних, збережених на сервері?</p></li>
+<li><p>Чому навігація маршрутами у CP4 ще не доводила збереження даних на сервері?</p></li>
+<li><p>За що відповідає Google Sheet?</p></li>
+<li><p>За що відповідає GAS Web App?</p></li>
+<li><p>Навіщо <code class="docutils literal notranslate"><span class="pre">DB_SPREADSHEET_ID</span></code> зберігати як Script Property?</p></li>
+<li><p>Які дві серверні можливості потрібні у базовому CP5?</p></li>
+<li><p>Що означає поле <code class="docutils literal notranslate"><span class="pre">ok</span></code> в обгортці відповіді?</p></li>
+<li><p>Чому клієнт повинен перевіряти <code class="docutils literal notranslate"><span class="pre">payload.ok</span></code>, а не лише HTTP-статус?</p></li>
+<li><p>Чому базовий POST використовує <code class="docutils literal notranslate"><span class="pre">text/plain;charset=utf-8</span></code>?</p></li>
+<li><p>Чому <code class="docutils literal notranslate"><span class="pre">/exec</span></code> є правильною URL-адресою розгортання для результату лабораторної?</p></li>
+<li><p>Які деталі обміну даними приховує <code class="docutils literal notranslate"><span class="pre">trafficLightsApi.js</span></code>?</p></li>
+<li><p>Чому компонент представлення не повинен викликати <code class="docutils literal notranslate"><span class="pre">fetch</span></code> напряму?</p></li>
+<li><p>Що означають точні значення <code class="docutils literal notranslate"><span class="pre">loading</span></code>, <code class="docutils literal notranslate"><span class="pre">success</span></code> і <code class="docutils literal notranslate"><span class="pre">error</span></code> у контексті початкового GET-запиту?</p></li>
+<li><p>Як користувач може повторити невдале завантаження?</p></li>
+<li><p>Чому сигнал у пам’яті може відрізнятися від сигналу, збереженого на сервері, до явного збереження?</p></li>
+<li><p>Що саме підтверджує успішне збереження?</p></li>
+<li><p>Чому автоматичний таймер не записує GAS на кожному кроці?</p></li>
+<li><p>Що означає неоднозначність фази <code class="docutils literal notranslate"><span class="pre">yellow</span></code> після завантаження із сервера?</p></li>
+<li><p>Чому серверну модель не потрібно розширювати полем <code class="docutils literal notranslate"><span class="pre">phase</span></code> у цій роботі?</p></li>
+<li><p>Яка перевірка доводить збереження даних сильніше, ніж просто відповідь сервера?</p></li>
+<li><p>Як перезавантаження браузера допомагає відрізнити стан у пам’яті від даних, збережених на сервері?</p></li>
+<li><p>Чому цей GAS Web App ще не є моделлю захисту для виробничого середовища?</p></li>
+</ol>
+</section>
+<section id="id24">
+<h2><span class="section-number">5.9. </span>Критерії приймання<a class="headerlink" href="#id24" title="Link to this heading">#</a></h2>
+<p>Робота вважається виконаною, якщо одночасно виконані всі умови:</p>
+<ul class="simple">
+<li><p>застосунок продовжує CP4 без створення нового незалежного React-проєкту;</p></li>
+<li><p>є Google Sheet <code class="docutils literal notranslate"><span class="pre">TRAFFIC_LIGHTS</span></code> зі стабільним записом <code class="docutils literal notranslate"><span class="pre">main</span></code>;</p></li>
+<li><p>вихідний код GAS збережений у репозиторії як <code class="docutils literal notranslate"><span class="pre">gas/Code.gs</span></code>;</p></li>
+<li><p>Spreadsheet ID не записується жорстко у вихідному коді GAS, а читається через
+<code class="docutils literal notranslate"><span class="pre">DB_SPREADSHEET_ID</span></code> Script Property;</p></li>
+<li><p>Web App підтримує GET-запит колекції й оновлення поточного сигналу одного запису;</p></li>
+<li><p>відкритий контракт відповіді використовує <code class="docutils literal notranslate"><span class="pre">{ok,data,error}</span></code>;</p></li>
+<li><p>некоректний/невідомий запит не записує довільні значення в Sheet;</p></li>
+<li><p>використовується версійне розгортання <code class="docutils literal notranslate"><span class="pre">/exec</span></code>;</p></li>
+<li><p>межа обміну даними React реалізована у <code class="docutils literal notranslate"><span class="pre">src/api/trafficLightsApi.js</span></code>;</p></li>
+<li><p>сторінки/компоненти представлення не містять дубльованих прямих викликів <code class="docutils literal notranslate"><span class="pre">fetch</span></code>;</p></li>
+<li><p>початковий GET-запит має видимий стан завантаження;</p></li>
+<li><p>невдалий GET-запит має видимий стан помилки та кнопку «Повторити»;</p></li>
+<li><p>успішний GET-запит дає підтверджений сервером запис <code class="docutils literal notranslate"><span class="pre">main</span></code>;</p></li>
+<li><p>поточний сигнал у пам’яті відновлюється зі збереженого серверного значення;</p></li>
+<li><p>явне збереження виконує POST з <code class="docutils literal notranslate"><span class="pre">text/plain;charset=utf-8</span></code> без власних заголовків;</p></li>
+<li><p>під час збереження інтерфейс показує, що запит виконується;</p></li>
+<li><p>успішне збереження підтверджується записом із відповіді сервера або повторним
+GET-запитом;</p></li>
+<li><p>невдале збереження не видається за підтверджене збереження даних;</p></li>
+<li><p>автоматичний таймер не виконує серверний запис на кожному кроці;</p></li>
+<li><p>фактичне значення Google Sheet змінюється після підтвердженого збереження;</p></li>
+<li><p>перезавантаження браузера + новий GET-запит повертають раніше збережений сигнал;</p></li>
+<li><p>студент може пояснити межу <code class="docutils literal notranslate"><span class="pre">React</span> <span class="pre">UI</span> <span class="pre">→</span> <span class="pre">trafficLightsApi</span> <span class="pre">→</span> <span class="pre">GAS</span> <span class="pre">→</span> <span class="pre">Sheet</span></code>;</p></li>
+<li><p>маршрути CP4, власник стану в Context і очищення таймера CP3 збережені.</p></li>
+</ul>
+</section>
+<section id="id25">
+<h2><span class="section-number">5.10. </span>Додаткове завдання<a class="headerlink" href="#id25" title="Link to this heading">#</a></h2>
+<p>Після виконання базових вимог можна додати <strong>одне</strong> обмежене розширення:</p>
+<p>створіть ще один запис у <code class="docutils literal notranslate"><span class="pre">TRAFFIC_LIGHTS</span></code>, наприклад:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>secondary | yellow
+</pre></div>
+</div>
+<p>і покажіть колекцію в окремій частині інтерфейсу лише для читання.</p>
+<p>Не додавайте API створення/видалення. Новий рядок можна створити вручну в таблиці.
+Мета розширення — показати, що контракт GET уже повертає колекцію, а не
+перетворити ЛР5 на CRUD.</p>
+<p>Як альтернатива, можна коротко використати <code class="docutils literal notranslate"><span class="pre">json-server</span></code> як локальну імітацію сервера для
+налагодження клієнтської межі, але фінальний CP5 усе одно повинен працювати із
+серверним сховищем GAS.</p>
+</section>
+<section id="id26">
+<h2><span class="section-number">5.11. </span>Поза основним обсягом ЛР5<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<p>У цій роботі не потрібно реалізовувати:</p>
+<ul class="simple">
+<li><p>створення/видалення записів через API;</p></li>
+<li><p>пагінацію, пошук або фільтрацію;</p></li>
+<li><p>оптимістичний контроль конкурентних змін / версіонування;</p></li>
+<li><p>автономний режим;</p></li>
+<li><p>синхронізацію в реальному часі;</p></li>
+<li><p>POST на кожний крок автоматичного таймера;</p></li>
+<li><p>Redux/RTK Query/TanStack Query або іншу бібліотеку кешу/стану лише заради
+цього потоку запитів;</p></li>
+<li><p>автентифікацію користувача;</p></li>
+<li><p>серверну модель авторизації;</p></li>
+<li><p>OAuth/JWT;</p></li>
+<li><p>керування секретами у виробничому середовищі;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clasp</span></code>, CI/CD або автоматизоване розгортання Apps Script;</p></li>
+<li><p>виробничий рівень журналювання/спостережуваності;</p></li>
+<li><p>складний REST-маршрутизатор або окрему серверну частину Node.</p></li>
+</ul>
+<p>Ці теми можуть бути корисними в реальних системах, але вони змінюють основну
+тему цієї лабораторної.</p>
+</section>
+<section id="id27">
+<h2><span class="section-number">5.12. </span>Результат<a class="headerlink" href="#id27" title="Link to this heading">#</a></h2>
+<p><strong>CP5:</strong> React SPA з кількома маршрутами та спільним станом світлофора в пам’яті й обмеженою
+серверною частиною GAS. Google Sheet <code class="docutils literal notranslate"><span class="pre">TRAFFIC_LIGHTS</span></code> зберігає <code class="docutils literal notranslate"><span class="pre">{id,currentSignal}</span></code>,
+GAS Web App дає читання колекції та явне оновлення, а React
+ізолює логіку обміну у <code class="docutils literal notranslate"><span class="pre">trafficLightsApi.js</span></code>. Початкове завантаження має стани <code class="docutils literal notranslate"><span class="pre">loading</span></code>/<code class="docutils literal notranslate"><span class="pre">error</span></code>/<code class="docutils literal notranslate"><span class="pre">success</span></code>,
+збереження виконується лише за явною дією користувача, автоматичний таймер не створює
+циклу серверних записів, а перезавантаження браузера + новий GET-запит підтверджують збереження даних.</p>
+<p>Цей стан проєкту є вхідною точкою для ЛР6, де функціональну поведінку CP5 буде
+оформлено як послідовний інтерфейс із Tailwind CSS та DaisyUI.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../lab04/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">попередній</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Лабораторна робота №4. Маршрутизація та спільний стан застосунку</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Зміст
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.1. Мета роботи</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.2. Результати навчання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.3. Передумови та початковий стан проєкту</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">5.4. Теоретичний мінімум</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5.4.1. Стан застосунку в пам’яті й дані, збережені на сервері, — не одне й те саме</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#google-sheet-api">5.4.2. Чому Google Sheet є сховищем, а не API</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5.4.3. Мінімальна колекція</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">5.4.4. Конфігурація не повинна бути базою даних</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api">5.4.5. Контракт API перед кодом</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">5.4.6. Чому відповідь має обгортку</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#post-text-plain">5.4.7. Чому POST використовує <code class="docutils literal notranslate"><span class="pre">text/plain</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exec-dev-url">5.4.8. <code class="docutils literal notranslate"><span class="pre">/exec</span></code> і <code class="docutils literal notranslate"><span class="pre">/dev</span></code> — різні URL розгортання</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">5.4.9. Межа доступу до даних</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">5.4.10. Стан запиту — це окремий стан застосунку</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">5.4.11. Поточний сигнал у пам’яті й збережений на сервері сигнал можуть тимчасово відрізнятися</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yellow">5.4.12. Особливість <code class="docutils literal notranslate"><span class="pre">yellow</span></code> у моделі фаз</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">5.5. Постановка задачі</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">5.6. Виконання</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">5.6.1. Крок 1. Створіть серверне сховище</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gas">5.6.2. Крок 2. Створіть вихідний код GAS у репозиторії</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#script-property">5.6.3. Крок 3. Додайте Script Property</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#json">5.6.4. Крок 4. Реалізуйте допоміжні функції JSON-відповідей</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get">5.6.5. Крок 5. Реалізуйте GET-запит колекції</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">5.6.6. Крок 6. Реалізуйте оновлення одного запису</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#web-app">5.6.7. Крок 7. Створіть версійне розгортання Web App</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gas-react">5.6.8. Крок 8. Перевірте контракт GAS окремо від React-інтерфейсу</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trafficlightsapi-js">5.6.9. Крок 9. Створіть <code class="docutils literal notranslate"><span class="pre">trafficLightsApi.js</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">5.6.10. Крок 10. Додайте стан серверного запиту до межі провайдера контексту</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5.6.11. Крок 11. Реалізуйте початкове завантаження через ефект</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">5.6.12. Крок 12. Покажіть стани завантаження, помилки та кнопку «Повторити»</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">5.6.13. Крок 13. Додайте явне «Зберегти поточний сигнал»</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5.6.14. Крок 14. Не синхронізуйте таймер із сервером автоматично</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5.6.15. Крок 15. Перевірте наскрізне збереження даних на сервері</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">5.7. Контрольні точки виконання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">5.8. Самоперевірка</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">5.9. Критерії приймання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">5.10. Додаткове завдання</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">5.11. Поза основним обсягом ЛР5</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">5.12. Результат</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Автор Author name not set
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
